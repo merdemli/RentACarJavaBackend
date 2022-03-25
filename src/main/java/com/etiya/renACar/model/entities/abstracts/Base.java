@@ -17,7 +17,7 @@ public abstract class Base {
         @JsonIgnore
         @Column(name = "createdAt",  columnDefinition = "Date default CURRENT_DATE")
         @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-        private LocalDate createdAt = LocalDate.now();
+        private LocalDate createdAt =  LocalDate.now();
 
         @Column(name = "isActive", columnDefinition = "boolean default true")
         private boolean isActive = true;
