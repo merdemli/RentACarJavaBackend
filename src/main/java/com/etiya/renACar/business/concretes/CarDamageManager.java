@@ -32,20 +32,23 @@ public class CarDamageManager implements CarDamageService {
     @Override
     public List<ListCarDamageDto> getAll() {
         List<CarDamage>damages = this.carDamageRepository.findAll();
-        List<ListCarDamageDto>response = damages.stream()
-                .map(carDamage -> this.modelMapperService.forDto().map(carDamage,ListCarDamageDto.class))
-                .collect(Collectors.toList());
-        return response;
+        return map(damages);
     }
 
     @Override
     public List<ListCarDamageDto> getByCarId(int carId) {
-
         List<CarDamage> carDamages = this.carDamageRepository.getByCarId(carId);
-        List<ListCarDamageDto> response =  carDamages.stream()
+        return map(carDamages);
+
+    }
+
+    private List<ListCarDamageDto> map(List<CarDamage> damages){
+        List<ListCarDamageDto>dtos =damages.stream()
                 .map(carDamage -> this.modelMapperService.forDto().map(carDamage,ListCarDamageDto.class))
                 .collect(Collectors.toList());
-        return response;
+        return dtos;
+
     }
+
 
 }
