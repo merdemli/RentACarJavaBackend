@@ -1,5 +1,6 @@
 package com.etiya.renACar.model.entities.concretes;
 
+import com.etiya.renACar.model.entities.abstracts.Base;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,15 +15,15 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table (name = "colors")
-public class Color {
+public class Color extends Base {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull
-    @Size(min =2)
+//    @NotNull
+//    @Size(min =2)
     @Column(name= "name")
     private String name;
 

@@ -1,11 +1,11 @@
 package com.etiya.renACar.api.controllers;
 
 import com.etiya.renACar.business.abstracts.ColorService;
-import com.etiya.renACar.business.model.request.createRequest.CreateColorRequest;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.etiya.renACar.business.model.requests.createRequest.CreateColorRequest;
+import com.etiya.renACar.business.model.responses.listDtos.ListColorDto;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/colors")
@@ -21,5 +21,10 @@ public class ColorsController {
     public void add(@RequestBody CreateColorRequest createColorRequest){
 
         this.colorService.add(createColorRequest);
+    }
+
+    @GetMapping("/getAll")
+    public List<ListColorDto>getAll(){
+        return this.colorService.getAll();
     }
 }

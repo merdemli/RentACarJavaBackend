@@ -1,5 +1,6 @@
 package com.etiya.renACar.model.entities.concretes;
 
+import com.etiya.renACar.model.entities.abstracts.Base;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "brands")
-public class Brand {
+public class Brand extends Base {
 
     @Id
     @Column(name= "id")

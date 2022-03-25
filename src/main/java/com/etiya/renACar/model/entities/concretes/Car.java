@@ -1,21 +1,24 @@
 package com.etiya.renACar.model.entities.concretes;
 
+import com.etiya.renACar.model.entities.abstracts.Base;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import javax.persistence.CascadeType;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.text.DateFormat;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "cars")
-public class Car {
+public class Car extends Base {
 
     @Id
     @Column(name = "id")
@@ -35,14 +38,16 @@ public class Car {
     @NotNull
     @Size(min = 2)
     @Column(name = "model_year")
-    private String modelYear;
+    private int modelYear;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "color_id")
     private Color color;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
+    @OneToMany(mappedBy = "car")
+    private List<CarDamage> damages;
 }
