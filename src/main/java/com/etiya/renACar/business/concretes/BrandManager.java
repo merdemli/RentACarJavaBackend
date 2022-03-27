@@ -9,6 +9,7 @@ import com.etiya.renACar.repository.abstracts.BrandRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,20 +28,28 @@ public class BrandManager implements BrandService {
 //        Brand brand = new Brand();
 //        brand.setName(createBrandRequest.getName()); //model veritabanı nesnesine çevrilir
 
+        if(checkIfBrandNameExists(createBrandRequest.getName())) System.out.println("this brand name already exist");
+        else{
         Brand brand = this.modelMapperService.forRequest().map(createBrandRequest,Brand.class);
-        this.brandRepository.save(brand);
-
+        this.brandRepository.save(brand);}
     }
 
     @Override
     public List<ResponseBrandDto> getAll() {
-
         List<Brand>brands = this.brandRepository.findAll();
         List<ResponseBrandDto> response = brands.stream()
                 .map(brand -> this.modelMapperService.forDto().map(brand, ResponseBrandDto.class))
                 .collect(Collectors.toList());
-
-
         return response;
+    }
+
+    //---------------------------------business rules--------------------------
+
+    private boolean checkIfBrandNameExists(String brandName){
+        if(this.brandRepository.existsBrandByNameIgnoreCase(brandName)){
+
+            return true;}
+        else
+            return false;
     }
 }

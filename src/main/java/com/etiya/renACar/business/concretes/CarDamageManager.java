@@ -49,7 +49,7 @@ public class CarDamageManager implements CarDamageService {
 
     @Override                                     //String option
     public List<ResponseCarDamageDto> getAllSorted(boolean sort,String property) {
-        //Sort sort = Sort.by(Sort.Direction.valueOf(option),property);
+        //Sort sort = Sort.by(Sort.Direction.valueOf(option).toString().toUpperCase(),property);
         Sort sort1= Sort.by(checkSortDirectionType(sort),property);
         damages = this.carDamageRepository.findAll(sort1);
         return map(damages);
