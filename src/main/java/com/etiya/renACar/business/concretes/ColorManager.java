@@ -27,8 +27,10 @@ public class ColorManager implements ColorService {
     public void add(CreateColorRequest createColorRequest) {
 //        Color color = new Color();
 //        color.setName(createColorRequest.getName());
+        if(checkIfColorNameExists(createColorRequest.getName())) throw new RuntimeException("This brand already exists");
+        else{
         Color color = this.modelMapperService.forRequest().map(createColorRequest, Color.class);
-        this.colorRepository.save(color);
+        this.colorRepository.save(color);}  //refactor
     }
 
     @Override
@@ -38,6 +40,12 @@ public class ColorManager implements ColorService {
                 .map(color -> this.modelMapperService.forDto().map(color, ResponseColorDto.class))
                 .collect(Collectors.toList());
         return response;
+    }
+
+    //--------------------business rules----------------------------------
+
+    private boolean checkIfColorNameExists(String colorName){
+        return this.colorRepository.existsColorByNameIgnoreCase(colorName);
     }
 
 }
