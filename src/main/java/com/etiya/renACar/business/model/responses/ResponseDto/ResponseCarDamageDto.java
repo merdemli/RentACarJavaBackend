@@ -1,18 +1,13 @@
-package com.etiya.renACar.business.model.responses.listDtos;
+package com.etiya.renACar.business.model.responses.ResponseDto;
 
-import com.etiya.renACar.model.entities.concretes.Car;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.time.LocalDate;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ListCarDamageDto {
+public class ResponseCarDamageDto {
 
     private int id;
 
@@ -21,7 +16,6 @@ public class ListCarDamageDto {
 
     private String description;
 
-    private String carDescription;
 
     private int carId;
 

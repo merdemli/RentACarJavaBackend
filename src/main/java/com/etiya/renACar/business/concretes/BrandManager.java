@@ -2,7 +2,7 @@ package com.etiya.renACar.business.concretes;
 
 import com.etiya.renACar.business.abstracts.BrandService;
 import com.etiya.renACar.business.model.requests.createRequest.CreateBrandRequest;
-import com.etiya.renACar.business.model.responses.listDtos.ListBrandDto;
+import com.etiya.renACar.business.model.responses.ResponseDto.ResponseBrandDto;
 import com.etiya.renACar.core.utilities.mapping.ModelMapperService;
 import com.etiya.renACar.model.entities.concretes.Brand;
 import com.etiya.renACar.repository.abstracts.BrandRepository;
@@ -33,11 +33,11 @@ public class BrandManager implements BrandService {
     }
 
     @Override
-    public List<ListBrandDto> getAll() {
+    public List<ResponseBrandDto> getAll() {
 
         List<Brand>brands = this.brandRepository.findAll();
-        List<ListBrandDto> response = brands.stream()
-                .map(brand -> this.modelMapperService.forDto().map(brand,ListBrandDto.class))
+        List<ResponseBrandDto> response = brands.stream()
+                .map(brand -> this.modelMapperService.forDto().map(brand, ResponseBrandDto.class))
                 .collect(Collectors.toList());
 
 

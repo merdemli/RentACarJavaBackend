@@ -2,8 +2,7 @@ package com.etiya.renACar.business.concretes;
 
 import com.etiya.renACar.business.abstracts.ColorService;
 import com.etiya.renACar.business.model.requests.createRequest.CreateColorRequest;
-import com.etiya.renACar.business.model.responses.listDtos.ListBrandDto;
-import com.etiya.renACar.business.model.responses.listDtos.ListColorDto;
+import com.etiya.renACar.business.model.responses.ResponseDto.ResponseColorDto;
 import com.etiya.renACar.core.utilities.mapping.ModelMapperService;
 import com.etiya.renACar.model.entities.concretes.Color;
 import com.etiya.renACar.repository.abstracts.ColorRepository;
@@ -33,10 +32,10 @@ public class ColorManager implements ColorService {
     }
 
     @Override
-    public List<ListColorDto> getAll() {
+    public List<ResponseColorDto> getAll() {
         List<Color>colors = this.colorRepository.findAll();
-        List<ListColorDto> response = colors.stream()
-                .map(color -> this.modelMapperService.forDto().map(color, ListColorDto.class))
+        List<ResponseColorDto> response = colors.stream()
+                .map(color -> this.modelMapperService.forDto().map(color, ResponseColorDto.class))
                 .collect(Collectors.toList());
         return response;
     }
