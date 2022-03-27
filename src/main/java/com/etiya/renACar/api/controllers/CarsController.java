@@ -45,13 +45,15 @@ public class CarsController {
         return this.carService.getAllSorted();
     }
 
-    @GetMapping("getallbymodelyearin")
+    @GetMapping("/getallbymodelyearin")
     public List<ResponseCarDto> getAllByModelYearIn(@RequestParam List<Integer>years){
         return this.carService.getAllByModelYearIn(years);
     }
 
-    @GetMapping("getallbystatus")
+    @GetMapping("/getallbystatus")
     public List<ResponseCarDto> getAllByStatus(@RequestParam CarStateStatus type){
         return this.carService.getAllByStatus(type);
     }
-}
+
+
+    }

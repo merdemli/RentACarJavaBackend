@@ -33,13 +33,13 @@ public class CarDamagesController {
         return this.carDamageService.getByCarId(carId);
     }
 
-    @GetMapping("getallpaged")
+    @GetMapping("/getallpaged")
     public List<ResponseCarDamageDto>getAllPaged(@RequestParam(value ="pageNo") int pageNo,
                                                  @RequestParam(value="pageSize") int pageSize){
         return this.carDamageService.getAllPaged(pageNo,pageSize);
     }
 
-    @GetMapping("getallsorted")
+    @GetMapping("/getallsorted")
     public List<ResponseCarDamageDto>getAllSorted(@RequestParam(value="sort") boolean sort,
                                                   @RequestParam(value="property") String property){
         return this.carDamageService.getAllSorted(sort,property);

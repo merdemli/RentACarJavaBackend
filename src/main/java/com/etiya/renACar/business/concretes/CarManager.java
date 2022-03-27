@@ -72,6 +72,8 @@ public class CarManager implements CarService {
         return map(cars);
     }
 
+
+
     private List<ResponseCarDto> map(List<Car> cars) {
         List<ResponseCarDto> dtos = cars.stream()//"stream of car" döner
                 .map(car -> this.modelMapperService.forDto().map(car, ResponseCarDto.class))
@@ -79,4 +81,9 @@ public class CarManager implements CarService {
         return dtos;
 
     }
+
+
+//----------------------------------------------------
+
+
 }

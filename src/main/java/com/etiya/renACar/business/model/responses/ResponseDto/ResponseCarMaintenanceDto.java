@@ -1,24 +1,26 @@
 package com.etiya.renACar.business.model.responses.ResponseDto;
 
+import com.etiya.renACar.model.entities.concretes.Car;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import java.time.LocalDate;
+
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class ResponseCarDamageDto {
+@NoArgsConstructor
+public class ResponseCarMaintenanceDto {
+
 
     private int id;
 
-    //@JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private String damageDate;
+    private LocalDate addedDate;
+
+    private LocalDate returnedDate;
 
     private String description;
 
     private int carId;
-
-
-
-
 }

@@ -11,4 +11,6 @@ public interface CarMaintenanceRepository extends JpaRepository<CarMaintenance,I
 
     List<CarMaintenance> getByCarId(int carId);
 
+
+
 }

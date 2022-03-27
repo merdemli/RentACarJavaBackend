@@ -14,6 +14,7 @@ public interface CarRepository extends JpaRepository<Car,Integer> {
     List<Car>getByModelYearIn(List<Integer>modelYears);
     List<Car>getByModelYearAndDailyPrice(int modelYear, double dailyPrice);
     List<Car>getByDescriptionContains(String description);
-    List<Car>getAllByStatus(CarStateStatus type);
+    List<Car>getAllByStatus(CarStateStatus type); //bakımda olan araçlar listelenebilmelidir
+
 
 }
