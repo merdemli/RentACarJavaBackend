@@ -28,11 +28,9 @@ public class BrandManager implements BrandService {
 //        Brand brand = new Brand();
 //        brand.setName(createBrandRequest.getName()); //model veritabanı nesnesine çevrilir
 
-        if(checkIfBrandNameExists(createBrandRequest.getName())) System.out.println("this brand name already exist");
-        else{
+        checkIfBrandNameExists(createBrandRequest.getName()) ;
         Brand brand = this.modelMapperService.forRequest().map(createBrandRequest,Brand.class);
         this.brandRepository.save(brand);}
-    }
 
     @Override
     public List<ResponseBrandDto> getAll() {
@@ -45,11 +43,10 @@ public class BrandManager implements BrandService {
 
     //---------------------------------business rules--------------------------
 
-    private boolean checkIfBrandNameExists(String brandName){
+    private void checkIfBrandNameExists(String brandName){
         if(this.brandRepository.existsBrandByNameIgnoreCase(brandName)){
+            throw new RuntimeException("This brand  already exists");
+        }
 
-            return true;}
-        else
-            return false;
     }
 }
