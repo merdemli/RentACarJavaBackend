@@ -1,5 +1,6 @@
 package com.etiya.renACar.business.model.requests.createRequest;
 
+import com.etiya.renACar.model.enums.CarStateStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,4 +19,6 @@ public class CreateCarRequest {
     private int colorId;
 
     private int brandId;
+
+    private CarStateStatus status;
 }

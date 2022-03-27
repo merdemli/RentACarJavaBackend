@@ -1,6 +1,7 @@
 package com.etiya.renACar.model.entities.concretes;
 
 import com.etiya.renACar.model.entities.abstracts.Base;
+import com.etiya.renACar.model.enums.CarStateStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.text.DateFormat;
 import java.util.List;
 
 @Data
@@ -50,4 +50,10 @@ public class Car extends Base {
 
     @OneToMany(mappedBy = "car")
     private List<CarDamage> damages;
+
+    @Enumerated(EnumType.STRING)
+    private CarStateStatus status;
+
+    @OneToMany(mappedBy = "car")
+    private List<CarMaintenance>carMaintenances;
 }

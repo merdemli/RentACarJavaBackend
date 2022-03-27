@@ -3,6 +3,7 @@ package com.etiya.renACar.business.concretes;
 import com.etiya.renACar.business.abstracts.BrandService;
 import com.etiya.renACar.business.model.requests.createRequest.CreateBrandRequest;
 import com.etiya.renACar.business.model.responses.ResponseDto.ResponseBrandDto;
+import com.etiya.renACar.core.crossCuttingConcerns.exceptionHandling.BusinessException;
 import com.etiya.renACar.core.utilities.mapping.ModelMapperService;
 import com.etiya.renACar.model.entities.concretes.Brand;
 import com.etiya.renACar.repository.abstracts.BrandRepository;
@@ -28,7 +29,7 @@ public class BrandManager implements BrandService {
 //        Brand brand = new Brand();
 //        brand.setName(createBrandRequest.getName()); //model veritabanı nesnesine çevrilir
 
-        if(checkIfBrandNameExists(createBrandRequest.getName())) throw new RuntimeException("This brand already exists");
+        if(checkIfBrandNameExists(createBrandRequest.getName())) throw new BusinessException("This brand already exists");
         Brand brand = this.modelMapperService.forRequest().map(createBrandRequest,Brand.class);
         this.brandRepository.save(brand);}
 

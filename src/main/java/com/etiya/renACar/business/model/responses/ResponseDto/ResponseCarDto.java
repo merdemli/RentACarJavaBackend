@@ -1,5 +1,6 @@
 package com.etiya.renACar.business.model.responses.ResponseDto;
 
+import com.etiya.renACar.model.enums.CarStateStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,5 +21,7 @@ public class ResponseCarDto {
     private String colorName;
 
     private String brandName;
+
+    private CarStateStatus status;
 
 }

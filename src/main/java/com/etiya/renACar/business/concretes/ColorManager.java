@@ -3,6 +3,7 @@ package com.etiya.renACar.business.concretes;
 import com.etiya.renACar.business.abstracts.ColorService;
 import com.etiya.renACar.business.model.requests.createRequest.CreateColorRequest;
 import com.etiya.renACar.business.model.responses.ResponseDto.ResponseColorDto;
+import com.etiya.renACar.core.crossCuttingConcerns.exceptionHandling.BusinessException;
 import com.etiya.renACar.core.utilities.mapping.ModelMapperService;
 import com.etiya.renACar.model.entities.concretes.Color;
 import com.etiya.renACar.repository.abstracts.ColorRepository;
@@ -27,10 +28,10 @@ public class ColorManager implements ColorService {
     public void add(CreateColorRequest createColorRequest) {
 //        Color color = new Color();
 //        color.setName(createColorRequest.getName());
-        if(checkIfColorNameExists(createColorRequest.getName())) throw new RuntimeException("This brand already exists");
+        if(checkIfColorNameExists(createColorRequest.getName())) throw new BusinessException("This brand already exists");
         else{
         Color color = this.modelMapperService.forRequest().map(createColorRequest, Color.class);
-        this.colorRepository.save(color);}  //refactor
+        this.colorRepository.save(color); }//refactor
     }
 
     @Override
