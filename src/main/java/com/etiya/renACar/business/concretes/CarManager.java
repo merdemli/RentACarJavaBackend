@@ -2,6 +2,7 @@ package com.etiya.renACar.business.concretes;
 
 import com.etiya.renACar.business.abstracts.CarService;
 import com.etiya.renACar.business.model.requests.createRequest.CreateCarRequest;
+import com.etiya.renACar.business.model.requests.updateRequest.UpdateStatusForCarTableRequest;
 import com.etiya.renACar.business.model.responses.ResponseDto.ResponseCarDto;
 import com.etiya.renACar.core.utilities.mapping.ModelMapperService;
 import com.etiya.renACar.model.entities.concretes.Car;
@@ -80,6 +81,20 @@ public class CarManager implements CarService {
     }
 
 
+    @Override
+    public Car getCarByIdAndStatus(int carId, CarState type) {
+        Car car = this.carRepository.getCarByIdAndStatus(carId,type);
+        return car;
+    }
+
+    @Override
+    public void updateMaintenanceStatus(UpdateStatusForCarTableRequest updateCarForMaintanenceRequest) {
+        Car car = this.carRepository.getCarById(updateCarForMaintanenceRequest.getCarId());
+        car.setStatus(CarState.maintenance);
+        this.carRepository.save(car);
+
+    }
+
     private List<ResponseCarDto> map(List<Car> cars) {
         List<ResponseCarDto> dtos = cars.stream()//"stream of car" döner
                 .map(car -> this.modelMapperService.forDto().map(car, ResponseCarDto.class))
@@ -88,8 +103,13 @@ public class CarManager implements CarService {
 
     }
 
+    private Car map(CreateCarRequest createCarRequest) {
+
+        Car car = this.modelMapperService.forRequest().map(createCarRequest, Car.class);
+        return car;
+
 
 //----------------------------------------------------
 
-
+    }
 }

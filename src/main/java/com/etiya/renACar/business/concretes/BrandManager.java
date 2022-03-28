@@ -42,6 +42,8 @@ public class BrandManager implements BrandService {
         return response;
     }
 
+
+
     //---------------------------------business rules--------------------------
 
     private boolean checkIfBrandNameExists(String brandName){

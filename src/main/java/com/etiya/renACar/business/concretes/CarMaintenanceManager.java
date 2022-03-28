@@ -3,6 +3,7 @@ package com.etiya.renACar.business.concretes;
 import com.etiya.renACar.business.abstracts.CarMaintenanceService;
 import com.etiya.renACar.business.abstracts.CarService;
 import com.etiya.renACar.business.model.requests.createRequest.CreateCarMaintenanceRequest;
+import com.etiya.renACar.business.model.requests.updateRequest.UpdateStatusForCarTableRequest;
 import com.etiya.renACar.business.model.responses.ResponseDto.ResponseCarDto;
 import com.etiya.renACar.business.model.responses.ResponseDto.ResponseCarMaintenanceDto;
 import com.etiya.renACar.core.crossCuttingConcerns.exceptionHandling.BusinessException;
@@ -22,6 +23,8 @@ public class CarMaintenanceManager implements CarMaintenanceService {
     private ModelMapperService modelMapperService;
     private CarService carService;
 
+
+
     public CarMaintenanceManager(CarMaintenanceRepository carMaintenanceRepository, ModelMapperService modelMapperService,
                                 CarService carService ) {
         this.carMaintenanceRepository = carMaintenanceRepository;
@@ -32,13 +35,16 @@ public class CarMaintenanceManager implements CarMaintenanceService {
     @Override
     public void add(CreateCarMaintenanceRequest createCarMaintenanceRequest) {
         checkIfExistsMaintenance(createCarMaintenanceRequest);
+
         CarMaintenance maintenance= this.modelMapperService.forRequest().
                 map(createCarMaintenanceRequest,CarMaintenance.class);
+        this.carMaintenanceRepository.save(maintenance);
 
-       this.carMaintenanceRepository.save(maintenance);
-        ResponseCarDto car1  = this.carService.getCarById(createCarMaintenanceRequest.getCarId());
-        car1.setStatus(CarState.maintenance);
+        UpdateStatusForCarTableRequest r = new UpdateStatusForCarTableRequest();
+         r.setCarId(createCarMaintenanceRequest.getCarId());
+        this.carService.updateMaintenanceStatus(r);
 
+// To.Do save ekle
 
     }
 
@@ -60,7 +66,6 @@ public class CarMaintenanceManager implements CarMaintenanceService {
     private void checkIfExistsMaintenance(CreateCarMaintenanceRequest createCarMaintenanceRequest){
         ResponseCarDto car1  = this.carService.getCarById(createCarMaintenanceRequest.getCarId());
         if(car1.getStatus()== CarState.maintenance) throw new BusinessException("this car is already in maintenance");
-
 
     }
 

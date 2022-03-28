@@ -2,6 +2,7 @@ package com.etiya.renACar.api.controllers;
 
 import com.etiya.renACar.business.abstracts.CarService;
 import com.etiya.renACar.business.model.requests.createRequest.CreateCarRequest;
+import com.etiya.renACar.business.model.requests.updateRequest.UpdateStatusForCarTableRequest;
 import com.etiya.renACar.business.model.responses.ResponseDto.ResponseCarDto;
 import com.etiya.renACar.model.enums.CarState;
 import org.springframework.web.bind.annotation.*;
@@ -61,5 +62,12 @@ public class CarsController {
    }
 
 
+   @PostMapping("/updatecarformaintenancestatus")
+    public void updateMaintenanceStatus(UpdateStatusForCarTableRequest updateCarForMaintanenceRequest){
+        this.carService.updateMaintenanceStatus(updateCarForMaintanenceRequest);
+   }
 
-    }
+
+
+
+}

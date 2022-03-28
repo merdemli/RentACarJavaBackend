@@ -1,13 +1,16 @@
 package com.etiya.renACar.business.abstracts;
 
 import com.etiya.renACar.business.model.requests.createRequest.CreateCarRequest;
+import com.etiya.renACar.business.model.requests.updateRequest.UpdateStatusForCarTableRequest;
 import com.etiya.renACar.business.model.responses.ResponseDto.ResponseCarDto;
+import com.etiya.renACar.model.entities.concretes.Car;
 import com.etiya.renACar.model.enums.CarState;
 
 import java.util.List;
 
 public interface CarService {
     void add(CreateCarRequest createCarRequest);
+    void updateMaintenanceStatus(UpdateStatusForCarTableRequest updateCarForMaintanenceRequest);
     List<ResponseCarDto>getAll();
     List<ResponseCarDto>getAllByModelYear(int modelYear);
 
@@ -16,5 +19,10 @@ public interface CarService {
     List<ResponseCarDto>getAllByModelYearIn(List<Integer>years);
     List<ResponseCarDto>getAllByStatus(CarState type);
     ResponseCarDto getCarById(int carId);
+
+
+    Car  getCarByIdAndStatus(int carId, CarState type);
+
+
 
 }

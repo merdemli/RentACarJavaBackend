@@ -3,6 +3,7 @@ package com.etiya.renACar.repository.abstracts;
 import com.etiya.renACar.model.entities.concretes.Car;
 import com.etiya.renACar.model.enums.CarState;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,4 +19,11 @@ public interface CarRepository extends JpaRepository<Car,Integer> {
 
     Car getCarById(int CarId);
 
+
+//
+//    @Modifying
+//    @Query("update Car set color.colorId=?2 where carId=?1")
+//    int updateColorToCarByCarId(int carId, int colorId);
+
+    Car getCarByIdAndStatus(int carId, CarState type);
 }

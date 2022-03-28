@@ -50,8 +50,8 @@ public class Car extends Base {
     @OneToMany(mappedBy = "car")
     private List<CarDamage> damages;
 
-    //@Enumerated(EnumType.STRING)
-    @Column(name="status_id")
+    @Enumerated(EnumType.STRING)
+    @Column(name="status")
     private CarState status;
 
     @OneToMany(mappedBy = "car")
