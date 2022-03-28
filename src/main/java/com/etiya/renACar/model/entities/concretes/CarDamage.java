@@ -22,7 +22,6 @@ public class CarDamage extends Base {
     private int id;
 
     @Column(name ="carDamageDate")
-    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate carDamageDate;
 
     @Column(name = "description")

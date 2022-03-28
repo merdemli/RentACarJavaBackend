@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @MappedSuperclass
 @Data
 @NoArgsConstructor
-public abstract class Base {
+public class Base {
 
         @JsonIgnore
         @Column(name = "createdAt",  columnDefinition = "Date default CURRENT_DATE")

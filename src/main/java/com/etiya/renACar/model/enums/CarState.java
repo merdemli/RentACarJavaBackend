@@ -1,6 +1,6 @@
 package com.etiya.renACar.model.enums;
 
-public enum CarStateStatus {
+public enum CarState {
 
     available,
     maintenance

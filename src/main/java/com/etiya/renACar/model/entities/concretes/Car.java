@@ -1,7 +1,7 @@
 package com.etiya.renACar.model.entities.concretes;
 
 import com.etiya.renACar.model.entities.abstracts.Base;
-import com.etiya.renACar.model.enums.CarStateStatus;
+import com.etiya.renACar.model.enums.CarState;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,7 +31,6 @@ public class Car extends Base {
     private double dailyPrice;
 
     @NotNull
-    @Size(min = 2, max = 100)
     @Column(name = "description")
     private String description;
 
@@ -40,7 +39,7 @@ public class Car extends Base {
     @Column(name = "model_year")
     private int modelYear;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne()
     @JoinColumn(name = "color_id")
     private Color color;
 
@@ -51,8 +50,9 @@ public class Car extends Base {
     @OneToMany(mappedBy = "car")
     private List<CarDamage> damages;
 
-    @Enumerated(EnumType.STRING)
-    private CarStateStatus status;
+    //@Enumerated(EnumType.STRING)
+    @Column(name="status_id")
+    private CarState status;
 
     @OneToMany(mappedBy = "car")
     private List<CarMaintenance>carMaintenances;

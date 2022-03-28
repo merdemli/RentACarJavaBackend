@@ -5,7 +5,7 @@ import com.etiya.renACar.business.model.requests.createRequest.CreateCarRequest;
 import com.etiya.renACar.business.model.responses.ResponseDto.ResponseCarDto;
 import com.etiya.renACar.core.utilities.mapping.ModelMapperService;
 import com.etiya.renACar.model.entities.concretes.Car;
-import com.etiya.renACar.model.enums.CarStateStatus;
+import com.etiya.renACar.model.enums.CarState;
 import com.etiya.renACar.repository.abstracts.CarRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -67,11 +67,17 @@ public class CarManager implements CarService {
     }
 
     @Override
-    public List<ResponseCarDto> getAllByStatus(CarStateStatus type) {
+    public List<ResponseCarDto> getAllByStatus(CarState type) {
         cars = this.carRepository.getAllByStatus(type);
         return map(cars);
     }
 
+    @Override
+    public ResponseCarDto getCarById(int carId) {
+        Car car = this.carRepository.getCarById(carId);
+        ResponseCarDto dto = this.modelMapperService.forDto().map(car, ResponseCarDto.class);
+        return dto;
+    }
 
 
     private List<ResponseCarDto> map(List<Car> cars) {

@@ -1,6 +1,6 @@
 package com.etiya.renACar.business.model.requests.createRequest;
 
-import com.etiya.renACar.model.enums.CarStateStatus;
+import com.etiya.renACar.model.enums.CarState;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,5 +20,5 @@ public class CreateCarRequest {
 
     private int brandId;
 
-    private CarStateStatus status;
+    private CarState status;
 }

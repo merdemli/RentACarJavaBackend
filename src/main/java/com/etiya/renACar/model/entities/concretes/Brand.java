@@ -23,7 +23,6 @@ public class Brand extends Base {
     private int id;
 
     @NotNull
-    @Size(min =2)
     @Column(name = "name")
     private String name;
 

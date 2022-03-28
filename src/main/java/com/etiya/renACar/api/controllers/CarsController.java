@@ -3,7 +3,7 @@ package com.etiya.renACar.api.controllers;
 import com.etiya.renACar.business.abstracts.CarService;
 import com.etiya.renACar.business.model.requests.createRequest.CreateCarRequest;
 import com.etiya.renACar.business.model.responses.ResponseDto.ResponseCarDto;
-import com.etiya.renACar.model.enums.CarStateStatus;
+import com.etiya.renACar.model.enums.CarState;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,9 +51,15 @@ public class CarsController {
     }
 
     @GetMapping("/getallbystatus")
-    public List<ResponseCarDto> getAllByStatus(@RequestParam CarStateStatus type){
+    public List<ResponseCarDto> getAllByStatus(@RequestParam CarState type){
         return this.carService.getAllByStatus(type);
     }
+
+    @GetMapping("/getcarbyid")
+   public ResponseCarDto getCarById(@RequestParam int carId) {
+        return this.carService.getCarById(carId);
+   }
+
 
 
     }
