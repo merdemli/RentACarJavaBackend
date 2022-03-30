@@ -2,7 +2,7 @@ package com.etiya.renACar.api.controllers;
 
 import com.etiya.renACar.business.abstracts.ColorService;
 import com.etiya.renACar.business.model.requests.createRequest.CreateColorRequest;
-import com.etiya.renACar.business.model.responses.ResponseDto.ResponseColorDto;
+import com.etiya.renACar.business.model.responses.listResponseDto.ColorListResponseDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class ColorsController {
     }
 
     @GetMapping("/getall")
-    public List<ResponseColorDto>getAll(){
+    public List<ColorListResponseDto>getAll(){
         return this.colorService.getAll();
     }
 }

@@ -1,7 +1,6 @@
-package com.etiya.renACar.business.model.requests.createRequest;
+package com.etiya.renACar.business.model.responses.getResponseDto;
 
 import com.etiya.renACar.model.enums.CarStates;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,9 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateCarRequest {
+public class CarResponseDto {
 
-    @JsonIgnore
     private int id;
 
     private double dailyPrice;
@@ -20,9 +18,9 @@ public class CreateCarRequest {
 
     private int modelYear;
 
-    private int colorId;
+    private String colorName;
 
-    private int brandId;
+    private String brandName;
 
     private CarStates status;
 }

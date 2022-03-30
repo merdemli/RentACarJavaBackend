@@ -1,5 +1,4 @@
-package com.etiya.renACar.business.model.requests.createRequest;
-
+package com.etiya.renACar.business.model.requests.updateRequest;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,15 +11,14 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateCarMaintenanceRequest {
+public class UpdateCarDamageRequest {
 
-    @JsonIgnore
-    private int id;
+
+
+    private int id; //Update requestlerde id zorunludur
 
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private LocalDate addedDate ;
-
-    private LocalDate returnedDate;
+    private LocalDate carDamageDate;
 
     private String description;
 

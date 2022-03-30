@@ -3,10 +3,11 @@ package com.etiya.renACar.business.concretes;
 import com.etiya.renACar.business.abstracts.CarService;
 import com.etiya.renACar.business.model.requests.createRequest.CreateCarRequest;
 import com.etiya.renACar.business.model.requests.updateRequest.UpdateStatusForCarTableRequest;
-import com.etiya.renACar.business.model.responses.ResponseDto.ResponseCarDto;
+import com.etiya.renACar.business.model.responses.getResponseDto.CarResponseDto;
+import com.etiya.renACar.business.model.responses.listResponseDto.CarListResponseDto;
 import com.etiya.renACar.core.utilities.mapping.ModelMapperService;
 import com.etiya.renACar.model.entities.concretes.Car;
-import com.etiya.renACar.model.enums.CarState;
+import com.etiya.renACar.model.enums.CarStates;
 import com.etiya.renACar.repository.abstracts.CarRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -35,81 +36,87 @@ public class CarManager implements CarService {
     }
 
     @Override
-    public List<ResponseCarDto> getAll() {
+    public List<CarListResponseDto> getAll() {
         cars = this.carRepository.findAll();
         return map(cars);
     }
 
     @Override
-    public List<ResponseCarDto> getAllByModelYear(int modelYear) {
+    public List<CarListResponseDto> getAllByModelYear(int modelYear) {
         cars = this.carRepository.getByModelYear(modelYear);
         return map(cars);
     }
 
     @Override
-    public List<ResponseCarDto> getAllPaged(int pageNo, int pageSize) {
+    public List<CarListResponseDto> getAllPaged(int pageNo, int pageSize) {
         Pageable pageable =  PageRequest.of(pageNo-1, pageSize);
         cars = this.carRepository.findAll(pageable).getContent();
         return map(cars);
     }
 
     @Override
-    public List<ResponseCarDto> getAllSorted() {
+    public List<CarListResponseDto> getAllSorted() {
         Sort sort = Sort.by(Sort.Direction.ASC,"modelYear");
         cars = this.carRepository.findAll(sort);
         return map(cars);
     }
 
     @Override
-    public List<ResponseCarDto> getAllByModelYearIn(List<Integer>years) {
+    public List<CarListResponseDto> getAllByModelYearIn(List<Integer>years) {
         cars = this.carRepository.getByModelYearIn(years);
         return map(cars);
 
     }
 
     @Override
-    public List<ResponseCarDto> getAllByStatus(CarState type) {
+    public List<CarListResponseDto> getAllByStatus(CarStates type) {
         cars = this.carRepository.getAllByStatus(type);
         return map(cars);
     }
 
     @Override
-    public ResponseCarDto getCarById(int carId) {
+    public CarResponseDto getCarById(int carId) {
         Car car = this.carRepository.getCarById(carId);
-        ResponseCarDto dto = this.modelMapperService.forDto().map(car, ResponseCarDto.class);
+        CarResponseDto dto = this.modelMapperService.forDto().map(car, CarResponseDto.class);
         return dto;
     }
 
-
     @Override
-    public Car getCarByIdAndStatus(int carId, CarState type) {
+    public Car getCarByIdAndStatus(int carId, CarStates type) {
         Car car = this.carRepository.getCarByIdAndStatus(carId,type);
         return car;
     }
 
+
+
     @Override
-    public void updateMaintenanceStatus(UpdateStatusForCarTableRequest updateCarForMaintanenceRequest) {
-        Car car = this.carRepository.getCarById(updateCarForMaintanenceRequest.getCarId());
-        car.setStatus(CarState.maintenance);
+    public void updateMaintenanceStatus(UpdateStatusForCarTableRequest updateStatusForCarTableRequest) {
+        Car car = this.carRepository.getCarById(updateStatusForCarTableRequest.getCarId());
+        car.setStatus(CarStates.Maintenance);
         this.carRepository.save(car);
 
     }
 
-    private List<ResponseCarDto> map(List<Car> cars) {
-        List<ResponseCarDto> dtos = cars.stream()//"stream of car" döner
-                .map(car -> this.modelMapperService.forDto().map(car, ResponseCarDto.class))
+    private List<CarListResponseDto> map(List<Car> cars) {
+        List<CarListResponseDto> dtos = cars.stream()//"stream of car" döner
+                .map(car -> this.modelMapperService.forDto().map(car, CarListResponseDto.class))
                 .collect(Collectors.toList());
         return dtos;
 
     }
 
     private Car map(CreateCarRequest createCarRequest) {
-
         Car car = this.modelMapperService.forRequest().map(createCarRequest, Car.class);
+        //car.setId(createCarRequest.getId());
         return car;
-
-
-//----------------------------------------------------
-
     }
+
+
+//----------------------------------------Business Rulse-----------------------
+
+    @Override
+    public boolean existsCarById(int carId) {
+        return this.carRepository.existsById(carId); //bu metodu repoya yazmana geek yok
+    }
+
 }

@@ -3,8 +3,9 @@ package com.etiya.renACar.api.controllers;
 import com.etiya.renACar.business.abstracts.CarService;
 import com.etiya.renACar.business.model.requests.createRequest.CreateCarRequest;
 import com.etiya.renACar.business.model.requests.updateRequest.UpdateStatusForCarTableRequest;
-import com.etiya.renACar.business.model.responses.ResponseDto.ResponseCarDto;
-import com.etiya.renACar.model.enums.CarState;
+import com.etiya.renACar.business.model.responses.getResponseDto.CarResponseDto;
+import com.etiya.renACar.business.model.responses.listResponseDto.CarListResponseDto;
+import com.etiya.renACar.model.enums.CarStates;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,38 +27,38 @@ public class CarsController {
     }
 
     @GetMapping("/getall")
-    public List<ResponseCarDto>getAll(){
+    public List<CarListResponseDto>getAll(){
         return this.carService.getAll();
     }
 
     @GetMapping("/getallbymodelyear")
-    public List<ResponseCarDto>getAllByModelYear(@RequestParam("model_year") int modelYear){
+    public List<CarListResponseDto>getAllByModelYear(@RequestParam("model_year") int modelYear){
         return this.carService.getAllByModelYear(modelYear);
         // requestParam:kullanıcıdan parametreyi isteğin sekiilde alabilmeni sağlar veya bize o şekilde gönderilir
     }
 
     @GetMapping("/getallpaged")
-    public List<ResponseCarDto>getAllPaged(int pageNo, int pageSize){
+    public List<CarListResponseDto>getAllPaged(int pageNo, int pageSize){
         return this.carService.getAllPaged(pageNo,pageSize);
     } //dao'da findAll'dan gelir,findAll'a parametre geçilir
 
     @GetMapping("/getallsorted")
-    public List<ResponseCarDto>getAllSorted(){
+    public List<CarListResponseDto>getAllSorted(){
         return this.carService.getAllSorted();
     }
 
     @GetMapping("/getallbymodelyearin")
-    public List<ResponseCarDto> getAllByModelYearIn(@RequestParam List<Integer>years){
+    public List<CarListResponseDto> getAllByModelYearIn(@RequestParam List<Integer>years){
         return this.carService.getAllByModelYearIn(years);
     }
 
     @GetMapping("/getallbystatus")
-    public List<ResponseCarDto> getAllByStatus(@RequestParam CarState type){
+    public List<CarListResponseDto> getAllByStatus(@RequestParam CarStates type){
         return this.carService.getAllByStatus(type);
     }
 
     @GetMapping("/getcarbyid")
-   public ResponseCarDto getCarById(@RequestParam int carId) {
+   public CarResponseDto getCarById(@RequestParam int carId) {
         return this.carService.getCarById(carId);
    }
 

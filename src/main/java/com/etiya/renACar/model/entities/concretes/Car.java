@@ -1,7 +1,7 @@
 package com.etiya.renACar.model.entities.concretes;
 
 import com.etiya.renACar.model.entities.abstracts.Base;
-import com.etiya.renACar.model.enums.CarState;
+import com.etiya.renACar.model.enums.CarStates;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,7 +35,6 @@ public class Car extends Base {
     private String description;
 
     @NotNull
-    @Size(min = 2)
     @Column(name = "model_year")
     private int modelYear;
 
@@ -52,8 +51,8 @@ public class Car extends Base {
 
     @Enumerated(EnumType.STRING)
     @Column(name="status")
-    private CarState status;
+    private CarStates status;
 
-    @OneToMany(mappedBy = "car")
+    @OneToMany(mappedBy = "car") //car maintenance'daki car alanını bulur,id'ye göre  mapler
     private List<CarMaintenance>carMaintenances;
 }

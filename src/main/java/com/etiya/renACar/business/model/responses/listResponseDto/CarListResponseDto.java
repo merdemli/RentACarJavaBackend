@@ -1,6 +1,6 @@
-package com.etiya.renACar.business.model.responses.ResponseDto;
+package com.etiya.renACar.business.model.responses.listResponseDto;
 
-import com.etiya.renACar.model.enums.CarState;
+import com.etiya.renACar.model.enums.CarStates;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseCarDto {
+public class CarListResponseDto {
 
     private int id;
 
@@ -22,6 +22,6 @@ public class ResponseCarDto {
 
     private String brandName;
 
-    private CarState status;
+    private CarStates status;
 
 }

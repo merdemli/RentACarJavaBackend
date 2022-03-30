@@ -26,7 +26,7 @@ public class Brand extends Base {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "brand") //car'da brand alanını bulur ve ilişki kurar
+    @OneToMany(mappedBy = "brand") //car nesnesindeki brand alanını bulur ve ilişki kurar
     private List<Car> cars;
 
 }

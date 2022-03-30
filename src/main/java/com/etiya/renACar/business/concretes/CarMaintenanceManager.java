@@ -4,12 +4,13 @@ import com.etiya.renACar.business.abstracts.CarMaintenanceService;
 import com.etiya.renACar.business.abstracts.CarService;
 import com.etiya.renACar.business.model.requests.createRequest.CreateCarMaintenanceRequest;
 import com.etiya.renACar.business.model.requests.updateRequest.UpdateStatusForCarTableRequest;
-import com.etiya.renACar.business.model.responses.ResponseDto.ResponseCarDto;
-import com.etiya.renACar.business.model.responses.ResponseDto.ResponseCarMaintenanceDto;
+import com.etiya.renACar.business.model.responses.getResponseDto.CarResponseDto;
+import com.etiya.renACar.business.model.responses.listResponseDto.CarListResponseDto;
+import com.etiya.renACar.business.model.responses.listResponseDto.CarMaintenanceListResponseDto;
 import com.etiya.renACar.core.crossCuttingConcerns.exceptionHandling.BusinessException;
 import com.etiya.renACar.core.utilities.mapping.ModelMapperService;
 import com.etiya.renACar.model.entities.concretes.CarMaintenance;
-import com.etiya.renACar.model.enums.CarState;
+import com.etiya.renACar.model.enums.CarStates;
 import com.etiya.renACar.repository.abstracts.CarMaintenanceRepository;
 import org.springframework.stereotype.Service;
 
@@ -36,8 +37,8 @@ public class CarMaintenanceManager implements CarMaintenanceService {
     public void add(CreateCarMaintenanceRequest createCarMaintenanceRequest) {
         checkIfExistsMaintenance(createCarMaintenanceRequest);
 
-        CarMaintenance maintenance= this.modelMapperService.forRequest().
-                map(createCarMaintenanceRequest,CarMaintenance.class);
+        CarMaintenance maintenance= this.modelMapperService.forRequest()
+                .map(createCarMaintenanceRequest,CarMaintenance.class);
         this.carMaintenanceRepository.save(maintenance);
 
         UpdateStatusForCarTableRequest r = new UpdateStatusForCarTableRequest();
@@ -49,14 +50,14 @@ public class CarMaintenanceManager implements CarMaintenanceService {
     }
 
     @Override
-    public List<ResponseCarMaintenanceDto> getByCarId(int carId) {
+    public List<CarMaintenanceListResponseDto> getByCarId(int carId) {
         List<CarMaintenance>maintenances = this.carMaintenanceRepository.getByCarId(carId);
         return map(maintenances);
 
     }
-    private List<ResponseCarMaintenanceDto> map(List<CarMaintenance> carMaintenances) {
-        List<ResponseCarMaintenanceDto> dtos = carMaintenances.stream()//"stream of car" döner
-                .map(m -> this.modelMapperService.forDto().map(m, ResponseCarMaintenanceDto.class))
+    private List<CarMaintenanceListResponseDto> map(List<CarMaintenance> carMaintenances) {
+        List<CarMaintenanceListResponseDto> dtos = carMaintenances.stream()//"stream of car" döner
+                .map(m -> this.modelMapperService.forDto().map(m, CarMaintenanceListResponseDto.class))
                 .collect(Collectors.toList());
         return dtos;
     }
@@ -64,9 +65,8 @@ public class CarMaintenanceManager implements CarMaintenanceService {
     //------------------business rules------------------------------------------------------------------------
 
     private void checkIfExistsMaintenance(CreateCarMaintenanceRequest createCarMaintenanceRequest){
-        ResponseCarDto car1  = this.carService.getCarById(createCarMaintenanceRequest.getCarId());
-        if(car1.getStatus()== CarState.maintenance) throw new BusinessException("this car is already in maintenance");
+        CarResponseDto car1  = this.carService.getCarById(createCarMaintenanceRequest.getCarId());
+        if(car1.getStatus()== CarStates.Maintenance) throw new BusinessException("this car is already in maintenance");
 
     }
-
 }

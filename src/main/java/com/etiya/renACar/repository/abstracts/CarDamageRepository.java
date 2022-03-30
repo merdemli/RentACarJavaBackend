@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface CarDamageRepository extends JpaRepository<CarDamage, Integer> {
 
-    List<CarDamage> getByCarId(int carId);
+    List<CarDamage> getByCarId(int carId); //getAllByCarId
+
 }

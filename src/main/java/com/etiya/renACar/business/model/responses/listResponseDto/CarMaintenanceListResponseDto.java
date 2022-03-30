@@ -1,17 +1,15 @@
-package com.etiya.renACar.business.model.responses.ResponseDto;
+package com.etiya.renACar.business.model.responses.listResponseDto;
 
-import com.etiya.renACar.model.entities.concretes.Car;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseCarMaintenanceDto {
+public class CarMaintenanceListResponseDto {
 
 
     private int id;
