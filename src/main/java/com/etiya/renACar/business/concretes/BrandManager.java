@@ -1,6 +1,7 @@
 package com.etiya.renACar.business.concretes;
 
 import com.etiya.renACar.business.abstracts.BrandService;
+import com.etiya.renACar.business.constants.messages.BusinessMessages;
 import com.etiya.renACar.business.model.requests.createRequest.CreateBrandRequest;
 import com.etiya.renACar.business.model.responses.listResponseDto.BrandListResponseDto;
 import com.etiya.renACar.core.crossCuttingConcerns.exceptionHandling.BusinessException;
@@ -36,7 +37,7 @@ public class BrandManager implements BrandService {
             throw new BusinessException("This brand already exists");
         Brand brand = this.modelMapperService.forRequest().map(createBrandRequest, Brand.class);
         this.brandRepository.save(brand);
-        return new SuccessResult("Brand added");
+        return new SuccessResult(BusinessMessages.BrandMessages.BRAND_ADDED_SUCCESSFULLY);
     }
 
     @Override
@@ -45,7 +46,7 @@ public class BrandManager implements BrandService {
         List<BrandListResponseDto> response = brands.stream()
                 .map(brand -> this.modelMapperService.forDto().map(brand, BrandListResponseDto.class))
                 .collect(Collectors.toList());
-        return new SuccessDataResult<>(response,"listed brand");
+        return new SuccessDataResult<>(response, BusinessMessages.BrandMessages.BRANDS_LISTED_SUCCESSFULLY);
     }
 
 

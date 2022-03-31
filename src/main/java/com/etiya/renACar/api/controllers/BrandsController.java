@@ -25,8 +25,7 @@ public class BrandsController {
 
     @PostMapping("/add")
     public Result add(@RequestBody @Valid CreateBrandRequest createBrandRequest){
-        this.brandService.add(createBrandRequest);
-        return new SuccessResult(BusinessMessages.BrandMessages.BRAND_ADDED_SUCCESSFULLY);
+        return this.brandService.add(createBrandRequest);
     }
 
     @GetMapping("/getall")
