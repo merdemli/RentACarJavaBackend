@@ -34,7 +34,7 @@ public class BrandManager implements BrandService {
 //        brand.setName(createBrandRequest.getName()); //model veritabanı nesnesine çevrilir
 
         if (checkIfBrandNameExists(createBrandRequest.getName()))
-            throw new BusinessException("This brand already exists");
+            throw new BusinessException(BusinessMessages.BrandMessages.BRAND_ALREADY_EXISTS);
         Brand brand = this.modelMapperService.forRequest().map(createBrandRequest, Brand.class);
         this.brandRepository.save(brand);
         return new SuccessResult(BusinessMessages.BrandMessages.BRAND_ADDED_SUCCESSFULLY);
