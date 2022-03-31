@@ -64,7 +64,7 @@ public class CarsController {
    }
 
 
-   @PostMapping("/updatecarformaintenancestatus")
+   @PutMapping("/updatecarformaintenancestatus")
     public void updateMaintenanceStatus(UpdateStatusForCarTableRequest updateCarForMaintanenceRequest){
         this.carService.updateMaintenanceStatus(updateCarForMaintanenceRequest);
    }

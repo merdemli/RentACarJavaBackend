@@ -24,7 +24,7 @@ public class CarDamagesController {
         this.carDamageService.add(createCarDamageRequest);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public void update(@RequestBody UpdateCarDamageRequest updateCarDamageRequest){
         this.carDamageService.update(updateCarDamageRequest);
     }
