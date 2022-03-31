@@ -8,6 +8,7 @@ import com.etiya.renACar.business.model.responses.listResponseDto.CarListRespons
 import com.etiya.renACar.model.enums.CarStates;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -22,7 +23,7 @@ public class CarsController {
     }
 
     @PostMapping("/add")
-    public void add(@RequestBody CreateCarRequest createCarRequest){
+    public void add(@RequestBody @Valid CreateCarRequest createCarRequest){
         this.carService.add(createCarRequest);
     }
 

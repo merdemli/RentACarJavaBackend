@@ -2,6 +2,7 @@ package com.etiya.renACar.business.concretes;
 
 import com.etiya.renACar.business.abstracts.CarMaintenanceService;
 import com.etiya.renACar.business.abstracts.CarService;
+import com.etiya.renACar.business.constants.messages.BusinessMessages;
 import com.etiya.renACar.business.model.requests.createRequest.CreateCarMaintenanceRequest;
 import com.etiya.renACar.business.model.requests.updateRequest.UpdateStatusForCarTableRequest;
 import com.etiya.renACar.business.model.responses.getResponseDto.CarResponseDto;
@@ -66,7 +67,7 @@ public class CarMaintenanceManager implements CarMaintenanceService {
 
     private void checkIfExistsMaintenance(CreateCarMaintenanceRequest createCarMaintenanceRequest){
         CarResponseDto car1  = this.carService.getCarById(createCarMaintenanceRequest.getCarId());
-        if(car1.getStatus()== CarStates.Maintenance) throw new BusinessException("this car is already in maintenance");
-
+        if(car1.getStatus()== CarStates.Maintenance)
+            throw new BusinessException(BusinessMessages.CarMessages.CAR_ALREADY_IN_MAINTENANCE);
     }
 }

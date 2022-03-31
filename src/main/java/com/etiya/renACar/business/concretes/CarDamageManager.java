@@ -92,7 +92,7 @@ public class CarDamageManager implements CarDamageService {
         damages  = this.carDamageRepository.findAll(pageable).getContent();
         return map(damages);
     }
-
+//-----------------------------------------Common Methods----------------------------------
     private List<CarDamageListResponseDto> map(List<CarDamage> damages){
         List<CarDamageListResponseDto>dtos =damages.stream()
                 .map(carDamage -> this.modelMapperService.forDto().map(carDamage, CarDamageListResponseDto.class))
@@ -109,10 +109,8 @@ public class CarDamageManager implements CarDamageService {
 
     //-------------------------------Business Rules--------------------------------------------
 
-    private boolean checkIfCarExists(int carId){
-        return this.carService.existsCarById(carId);
-        }
-
-
+//    private boolean checkIfCarExists(int carId){
+//        return this.carService.existsCarById(carId);
+//        }
 
 }

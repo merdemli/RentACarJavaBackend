@@ -3,8 +3,12 @@ package com.etiya.renACar.api.controllers;
 import com.etiya.renACar.business.abstracts.BrandService;
 import com.etiya.renACar.business.model.requests.createRequest.CreateBrandRequest;
 import com.etiya.renACar.business.model.responses.listResponseDto.BrandListResponseDto;
+import com.etiya.renACar.core.utilities.results.DataResult;
+import com.etiya.renACar.core.utilities.results.Result;
+import com.etiya.renACar.core.utilities.results.SuccessResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,12 +23,13 @@ public class BrandsController {
     }
 
     @PostMapping("/add")
-    public void add(@RequestBody CreateBrandRequest createBrandRequest){
+    public Result add(@RequestBody @Valid CreateBrandRequest createBrandRequest){
         this.brandService.add(createBrandRequest);
+        return new SuccessResult("Marka eklendi");
     }
 
     @GetMapping("/getall")
-    public List<BrandListResponseDto> getAll(){
+    public DataResult<List<BrandListResponseDto>> getAll(){
        return this.brandService.getAll();
     }
 }
