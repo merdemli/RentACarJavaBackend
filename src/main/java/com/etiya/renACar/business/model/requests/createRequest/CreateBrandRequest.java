@@ -18,6 +18,6 @@ public class CreateBrandRequest {  //insert
     private int id;
 
     @NotNull
-    @Length(min = 2, message = "Length must be at least 2 characters")
+    @Length(min = 2, message = "Length must be at least 2 characters") //responsebody mesajı 400error,swagger
     private String name; //id'ye gerek yok, zaten sisteme eklenirken otomatik atanıyor
 }

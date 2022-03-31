@@ -1,6 +1,7 @@
 package com.etiya.renACar.api.controllers;
 
 import com.etiya.renACar.business.abstracts.BrandService;
+import com.etiya.renACar.business.constants.messages.BusinessMessages;
 import com.etiya.renACar.business.model.requests.createRequest.CreateBrandRequest;
 import com.etiya.renACar.business.model.responses.listResponseDto.BrandListResponseDto;
 import com.etiya.renACar.core.utilities.results.DataResult;
@@ -25,7 +26,7 @@ public class BrandsController {
     @PostMapping("/add")
     public Result add(@RequestBody @Valid CreateBrandRequest createBrandRequest){
         this.brandService.add(createBrandRequest);
-        return new SuccessResult("Marka eklendi");
+        return new SuccessResult(BusinessMessages.BrandMessages.BRAND_ADDED_SUCCESSFULLY);
     }
 
     @GetMapping("/getall")
