@@ -42,4 +42,7 @@ public class CreateCarRequest {
 
     @Enumerated(EnumType.STRING)
     private CarStates status;
+
+    @NotNull
+    private int cityId;
 }

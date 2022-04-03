@@ -6,8 +6,7 @@ import com.etiya.renACar.business.model.requests.createRequest.CreateCarDamageRe
 import com.etiya.renACar.business.model.requests.deleteRequest.DeleteCarDamageRequest;
 import com.etiya.renACar.business.model.requests.updateRequest.UpdateCarDamageRequest;
 import com.etiya.renACar.business.model.responses.getResponseDto.CarDamageResponseDto;
-import com.etiya.renACar.business.model.responses.listResponseDto.CarDamageListResponseDto;
-import com.etiya.renACar.core.crossCuttingConcerns.exceptionHandling.BusinessException;
+import com.etiya.renACar.business.model.responses.listResponseDto.CarDamageListResponse;
 import com.etiya.renACar.core.utilities.mapping.ModelMapperService;
 import com.etiya.renACar.model.entities.concretes.CarDamage;
 import com.etiya.renACar.repository.abstracts.CarDamageRepository;
@@ -66,20 +65,20 @@ public class CarDamageManager implements CarDamageService {
     }
 
     @Override
-    public List<CarDamageListResponseDto> getAll() {
+    public List<CarDamageListResponse> getAll() {
         damages = this.carDamageRepository.findAll();
         return map(damages);
     }
 
     @Override
-    public List<CarDamageListResponseDto> getByCarId(int carId) {
+    public List<CarDamageListResponse> getByCarId(int carId) {
         damages = this.carDamageRepository.getByCarId(carId);
         return map(damages);
 
     }
 
     @Override                                     //String option
-    public List<CarDamageListResponseDto> getAllSorted(boolean sort, String property) {
+    public List<CarDamageListResponse> getAllSorted(boolean sort, String property) {
         //Sort sort = Sort.by(Sort.Direction.valueOf(option).toString().toUpperCase(),property);
         Sort sort1= Sort.by(checkSortDirectionType(sort),property);
         damages = this.carDamageRepository.findAll(sort1);
@@ -87,15 +86,15 @@ public class CarDamageManager implements CarDamageService {
     }
 
     @Override
-    public List<CarDamageListResponseDto> getAllPaged(int pageNo, int pageSize) {
+    public List<CarDamageListResponse> getAllPaged(int pageNo, int pageSize) {
         Pageable pageable =  PageRequest.of(pageNo-1, pageSize);
         damages  = this.carDamageRepository.findAll(pageable).getContent();
         return map(damages);
     }
 //-----------------------------------------Common Methods----------------------------------
-    private List<CarDamageListResponseDto> map(List<CarDamage> damages){
-        List<CarDamageListResponseDto>dtos =damages.stream()
-                .map(carDamage -> this.modelMapperService.forDto().map(carDamage, CarDamageListResponseDto.class))
+    private List<CarDamageListResponse> map(List<CarDamage> damages){
+        List<CarDamageListResponse>dtos =damages.stream()
+                .map(carDamage -> this.modelMapperService.forDto().map(carDamage, CarDamageListResponse.class))
                 .collect(Collectors.toList());
         return dtos;
     }

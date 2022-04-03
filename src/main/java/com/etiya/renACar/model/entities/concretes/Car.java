@@ -55,4 +55,11 @@ public class Car extends Base {
 
     @OneToMany(mappedBy = "car") //car maintenance'daki car alanını bulur,id'ye göre  mapler
     private List<CarMaintenance>carMaintenances;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City city;
+
+    @OneToMany(mappedBy = "car")
+    private List<Rental>rentals;
 }

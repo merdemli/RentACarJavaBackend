@@ -2,7 +2,7 @@ package com.etiya.renACar.api.controllers;
 
 import com.etiya.renACar.business.abstracts.CarMaintenanceService;
 import com.etiya.renACar.business.model.requests.createRequest.CreateCarMaintenanceRequest;
-import com.etiya.renACar.business.model.responses.listResponseDto.CarMaintenanceListResponseDto;
+import com.etiya.renACar.business.model.responses.listResponseDto.CarMaintenanceListResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public class CarMaintenancesController {
     }
 
     @GetMapping("/getallmaintenancebycarid")
-    public List<CarMaintenanceListResponseDto> getByCarId(@RequestParam int carId){
+    public List<CarMaintenanceListResponse> getByCarId(@RequestParam int carId){
         return this.carMaintenanceService.getByCarId(carId);
     }
 

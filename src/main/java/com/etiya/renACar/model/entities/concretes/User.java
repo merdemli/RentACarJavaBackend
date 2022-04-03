@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -25,4 +26,7 @@ public class User extends Base {
 
     @Column(name = "password")
     private String password;
+
+    @OneToMany(mappedBy = "user") //rental'daki user alanını bulur
+    private List<Rental> rentals;
 }

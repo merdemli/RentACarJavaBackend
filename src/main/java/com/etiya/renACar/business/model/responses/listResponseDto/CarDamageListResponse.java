@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CarDamageListResponseDto {
+public class CarDamageListResponse {
 
     private int id;
     //@JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")

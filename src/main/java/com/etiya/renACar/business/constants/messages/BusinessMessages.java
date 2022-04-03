@@ -11,6 +11,7 @@ public class BusinessMessages {
         public static final String CAR_NOT_IN_MAINTENANCE = "CAR_NOT_IN_MAINTENANCE";
         public static final String CAR_MAINTENANCES_FOR_CAR_LISTED_SUCCESSFULLY = "CAR_MAINTENANCES_FOR_CAR_LISTED_SUCCESSFULLY";
         public static final String A_FUTURE_DATE_CANNOT_BE_ENTERED = "A_FUTURE_DATE_CANNOT_BE_ENTERED";
+        public static final String CAR_MAINTENANCE_ALREADY_EXISTS_ = "CAR_MAINTENANCE_ALREADY_EXISTS";
     }
 
     public class CarMessages{

@@ -4,21 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CarMaintenanceListResponseDto {
-
-
+public class ColorListResponse {
     private int id;
+    private String name;
 
-    private LocalDate addedDate;
-
-    private LocalDate returnedDate;
-
-    private String description;
-
-    private int carId;
 }
