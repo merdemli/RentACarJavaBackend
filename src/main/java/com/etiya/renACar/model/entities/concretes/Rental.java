@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -44,6 +45,18 @@ public class Rental extends Base { //kiralanma bilgisi
     @ManyToOne
     @JoinColumn(name= "delivery_city_id",referencedColumnName = "id")
     private City deliveryCity;
+
+    @OneToMany(mappedBy = "rental")
+    private List<OrderedAdditionalProduct> orderedAdditionalProducts;
+
+    @OneToMany(mappedBy = "rental")
+    private List<Invoice>invoices;  //örnegin kiralama süresini uzattı,birden çok faturası olabilir
+
+    @OneToMany(mappedBy = "rental")
+    private List<Payment>payments;
+
+
+
 
 
 }

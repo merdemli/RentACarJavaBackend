@@ -22,7 +22,6 @@ public class Brand extends Base {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull
     @Column(name = "name")
     private String name;
 

@@ -29,4 +29,7 @@ public class User extends Base {
 
     @OneToMany(mappedBy = "user") //rental'daki user alanını bulur
     private List<Rental> rentals;
+
+    @OneToMany(mappedBy = "user")
+    private List<Invoice>invoices;
 }

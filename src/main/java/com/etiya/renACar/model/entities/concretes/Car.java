@@ -25,20 +25,22 @@ public class Car extends Base {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull
-    @Min(0)
+
     @Column(name = "daily_price")
     private double dailyPrice;
 
-    @NotNull
+    @Column(name = "discount_amount")
+    private double discountAmount;
+
+
     @Column(name = "description")
     private String description;
 
-    @NotNull
+
     @Column(name = "model_year")
     private int modelYear;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "color_id")
     private Color color;
 
@@ -62,4 +64,6 @@ public class Car extends Base {
 
     @OneToMany(mappedBy = "car")
     private List<Rental>rentals;
+
+
 }
