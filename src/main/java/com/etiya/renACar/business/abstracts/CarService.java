@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface CarService {
     void add(CreateCarRequest createCarRequest);
-    void updateMaintenanceStatus(UpdateStatusForCarTableRequest updateCarForMaintanenceRequest);
+    void updateMaintenanceStatus(int carId, CarStates type);
 
     List<CarListResponse>getAll();
     List<CarListResponse>getAllByModelYear(int modelYear);

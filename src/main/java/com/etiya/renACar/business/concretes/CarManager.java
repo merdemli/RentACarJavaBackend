@@ -96,9 +96,9 @@ public class CarManager implements CarService {
 
 
     @Override
-    public void updateMaintenanceStatus(UpdateStatusForCarTableRequest updateStatusForCarTableRequest) {
-        Car car = this.carRepository.getCarById(updateStatusForCarTableRequest.getCarId());
-        car.setStatus(CarStates.maintenance);
+    public void updateMaintenanceStatus(int carId, CarStates type) {
+        Car car = this.carRepository.getCarById(carId);
+        car.setStatus(type);
         this.carRepository.save(car);
 
     }

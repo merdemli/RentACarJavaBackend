@@ -66,8 +66,8 @@ public class CarsController {
 
 
    @PutMapping("/updatecarformaintenancestatus")
-    public void updateMaintenanceStatus(UpdateStatusForCarTableRequest updateCarForMaintanenceRequest){
-        this.carService.updateMaintenanceStatus(updateCarForMaintanenceRequest);
+    public void updateMaintenanceStatus(int carId, CarStates type){
+        this.carService.updateMaintenanceStatus(carId,type);
    }
 
    @GetMapping("/getallcarsbyid")

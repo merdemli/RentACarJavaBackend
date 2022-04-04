@@ -32,6 +32,8 @@ public class Car extends Base {
     @Column(name = "discount_amount")
     private double discountAmount;
 
+    @Column(name = "km_info")
+    private double kmInfo;
 
     @Column(name = "description")
     private String description;

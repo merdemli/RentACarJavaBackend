@@ -47,14 +47,11 @@ public class CarMaintenanceManager implements CarMaintenanceService {
         checkIfReturnDate(createCarMaintenanceRequest.getReturnedDate());
         //checkIfCarisRented(createCarMaintenanceRequest.getCarId()); !!!hata var
 
-
             CarMaintenance maintenance = this.modelMapperService.forRequest()
                     .map(createCarMaintenanceRequest, CarMaintenance.class);
             this.carMaintenanceRepository.save(maintenance);
 
-            UpdateStatusForCarTableRequest r = new UpdateStatusForCarTableRequest();
-            r.setCarId(createCarMaintenanceRequest.getCarId());
-            this.carService.updateMaintenanceStatus(r);
+        this.carService.updateMaintenanceStatus(createCarMaintenanceRequest.getCarId(),CarStates.maintenance);
 
     }
 

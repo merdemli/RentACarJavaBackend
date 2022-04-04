@@ -5,6 +5,7 @@ import com.etiya.renACar.business.abstracts.CarService;
 import com.etiya.renACar.business.abstracts.RentalService;
 import com.etiya.renACar.business.constants.messages.BusinessMessages;
 import com.etiya.renACar.business.model.requests.createRequest.CreateRentalRequest;
+import com.etiya.renACar.business.model.requests.updateRequest.UpdateStatusForCarTableRequest;
 import com.etiya.renACar.business.model.responses.getResponseDto.CarResponseDto;
 import com.etiya.renACar.core.crossCuttingConcerns.exceptionHandling.BusinessException;
 import com.etiya.renACar.core.utilities.mapping.ModelMapperService;
@@ -23,13 +24,16 @@ import java.time.LocalDate;
 @Service
 public class RentalManager implements RentalService {
 
-    @Autowired
     private RentalRepository rentalRepository;
-    @Autowired
     private ModelMapperService modelMapperService;
-    @Autowired
     private CarService carService;
 
+
+    public RentalManager(RentalRepository rentalRepository, ModelMapperService modelMapperService, CarService carService) {
+        this.rentalRepository = rentalRepository;
+        this.modelMapperService = modelMapperService;
+        this.carService = carService;
+    }
 
     @Override
     public Result add(CreateRentalRequest createRentalRequest) {
@@ -37,8 +41,9 @@ public class RentalManager implements RentalService {
         Rental rental = this.modelMapperService.forRequest().map(createRentalRequest, Rental.class);
         checkIfCarAlreadyInRent(rental);
 
-        rental.getCar().setStatus(CarStates.rented);
         this.rentalRepository.save(rental);
+        this.carService.updateMaintenanceStatus(createRentalRequest.getCarId(),CarStates.rented);
+
         return new SuccessResult(BusinessMessages.RentMessages.RENT_ADDED_SUCCESSFULLY);
     }
 

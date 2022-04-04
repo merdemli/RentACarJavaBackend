@@ -13,7 +13,6 @@ public class UpdateStatusForCarTableRequest {
 
     private int carId;
 
-    @JsonIgnore
     private CarStates type;
 
 

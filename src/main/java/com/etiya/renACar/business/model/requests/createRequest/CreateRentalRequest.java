@@ -19,15 +19,11 @@ public class CreateRentalRequest {
     @JsonIgnore
     private int id;
 
-
     private LocalDate rentDate;
-
 
     private LocalDate deliveryDate;
 
-
     private boolean rentStatus =true ;//true kirada , false uygun
-
 
     private int carId;
 
