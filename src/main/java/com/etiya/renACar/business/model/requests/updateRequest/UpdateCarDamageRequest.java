@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
@@ -15,12 +16,14 @@ public class UpdateCarDamageRequest {
 
 
 
+    @NotNull
     private int id; //Update requestlerde id zorunludur
 
-    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @NotNull
     private LocalDate carDamageDate;
 
     private String description;
 
+    @NotNull
     private int carId;
 }

@@ -36,8 +36,6 @@ public class CarMaintenanceManager implements CarMaintenanceService {
         this.modelMapperService = modelMapperService;
         this.carService = carService;
         this.rentalService = rentalService;
-
-
     }
 
     @Override
@@ -52,14 +50,12 @@ public class CarMaintenanceManager implements CarMaintenanceService {
             this.carMaintenanceRepository.save(maintenance);
 
         this.carService.updateMaintenanceStatus(createCarMaintenanceRequest.getCarId(),CarStates.maintenance);
-
     }
 
     @Override
     public List<CarMaintenanceListResponse> getByCarId(int carId) {
         List<CarMaintenance> maintenances = this.carMaintenanceRepository.getByCarId(carId);
         return map(maintenances);
-
     }
 
     private List<CarMaintenanceListResponse> map(List<CarMaintenance> carMaintenances) {

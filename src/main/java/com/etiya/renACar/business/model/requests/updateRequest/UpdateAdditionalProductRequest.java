@@ -1,7 +1,5 @@
 package com.etiya.renACar.business.model.requests.updateRequest;
 
-import com.etiya.renACar.model.enums.CarStates;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,15 +7,18 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotNull;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class UpdateStatusForCarTableRequest {
+@NoArgsConstructor
+public class UpdateAdditionalProductRequest {
 
     @NotNull
-    private int carId;
+    private int id;
 
     @NotNull
-    private CarStates type;
+    private String productName;
 
+    @NotNull
+    private double unitPrice;
 
+    private int discountAmount;
 }

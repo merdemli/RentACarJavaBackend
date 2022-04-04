@@ -23,11 +23,11 @@ public class OrderedAdditionalProduct extends Base {
     @Column(name= "amount")
     private int amount;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "rental_id")
     private Rental rental;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "additional_product_id")
     private AdditionalProduct additionalProduct;
 
@@ -72,5 +72,9 @@ public class OrderedAdditionalProduct extends Base {
 
     public double getTotalPrice() {
         return totalPrice = additionalProduct.getUnitPrice()*amount;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

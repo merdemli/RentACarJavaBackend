@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DeleteRentalRequest {
+public class DeleteOrderedAdditionalProductRequest {
     @NotNull
     private int id;
 }
