@@ -119,7 +119,7 @@ public class BusinessMessages {
     public class RentMessages{
         public static final String RENT_ADDED_SUCCESSFULLY = "RENT_ADDED_SUCCESSFULLY";
         public static final String RENT_UPDATED_SUCCESSFULLY = "RENT_UPDATED_SUCCESSFULLY";
-        public static final String ENDED_KILOMETER_INFO_UPDATED_SUCCESSFULLY = "ENDED_KILOMETER_INFO_UPDATED_SUCCESSFULLY";
+        public static final String END_KILOMETER_INFO_UPDATED_SUCCESSFULLY = "END_KILOMETER_INFO_UPDATED_SUCCESSFULLY";
         public static final String RENT_DELETED_SUCCESSFULLY = "RENT_DELETED_SUCCESSFULLY";
         public static final String RENT_LISTED_SUCCESSFULLY = "RENT_LISTED_SUCCESSFULLY";
         public static final String RENTS_LISTED_SUCCESSFULLY = "RENTS_LISTED_SUCCESSFULLY";

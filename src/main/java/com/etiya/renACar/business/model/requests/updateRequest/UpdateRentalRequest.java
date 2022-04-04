@@ -21,6 +21,8 @@ public class UpdateRentalRequest {
 
     private boolean rentStatus;//true kirada , false uygun
 
+    private double endKm;
+
     private int carId;
 
     private  int rentalCityId;

@@ -8,6 +8,7 @@ import com.etiya.renACar.business.constants.messages.BusinessMessages;
 import com.etiya.renACar.business.model.requests.createRequest.CreateOrderedAdditionalProductRequest;
 import com.etiya.renACar.business.model.requests.createRequest.CreateRentalRequest;
 import com.etiya.renACar.business.model.requests.deleteRequest.DeleteRentalRequest;
+import com.etiya.renACar.business.model.requests.updateRequest.UpdateKmInfoRequest;
 import com.etiya.renACar.business.model.requests.updateRequest.UpdateRentalRequest;
 import com.etiya.renACar.business.model.requests.updateRequest.UpdateStatusForCarTableRequest;
 import com.etiya.renACar.business.model.responses.getResponseDto.CarResponseDto;
@@ -24,6 +25,7 @@ import com.etiya.renACar.repository.abstracts.RentalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -108,6 +110,18 @@ public class RentalManager implements RentalService {
             }}
 
         }throw new BusinessException(BusinessMessages.CarMessages.CAR_NOT_FOUND);// Öyle bir Rental yok
+    }
+
+    @Transactional
+    public Result UpdateEndKm(UpdateKmInfoRequest kmInfoRequest){
+        Rental rental =this.rentalRepository.getById(kmInfoRequest.getRentalId());
+
+        if(rental.getDeliveryDate().isEqual(LocalDate.now())){
+            this.rentalRepository.updateEndKmInfoForRentalTable(kmInfoRequest.getRentalId(),kmInfoRequest.getEndKm());
+            this.carService.updateCarKmInfo(kmInfoRequest);
+
+        }
+        return new SuccessResult(BusinessMessages.RentMessages.END_KILOMETER_INFO_UPDATED_SUCCESSFULLY);
     }
 
     @Override

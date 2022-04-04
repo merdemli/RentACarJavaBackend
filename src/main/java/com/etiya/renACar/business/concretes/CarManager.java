@@ -2,6 +2,8 @@ package com.etiya.renACar.business.concretes;
 
 import com.etiya.renACar.business.abstracts.CarService;
 import com.etiya.renACar.business.model.requests.createRequest.CreateCarRequest;
+import com.etiya.renACar.business.model.requests.updateRequest.UpdateKmInfoRequest;
+import com.etiya.renACar.business.model.requests.updateRequest.UpdateRentalRequest;
 import com.etiya.renACar.business.model.requests.updateRequest.UpdateStatusForCarTableRequest;
 import com.etiya.renACar.business.model.responses.getResponseDto.CarResponseDto;
 import com.etiya.renACar.business.model.responses.listResponseDto.CarListResponse;
@@ -100,8 +102,14 @@ public class CarManager implements CarService {
         Car car = this.carRepository.getCarById(carId);
         car.setStatus(type);
         this.carRepository.save(car);
-
     }
+
+    public void updateCarKmInfo(UpdateKmInfoRequest updateKmInfoRequest){
+        Car car = this.carRepository.getCarById(updateKmInfoRequest.getCarId());
+        car.setKmInfo(updateKmInfoRequest.getEndKm());
+        this.carRepository.save(car);
+    }
+
 
     private List<CarListResponse> map(List<Car> cars) {
         List<CarListResponse> dtos = cars.stream()//"stream of car" döner

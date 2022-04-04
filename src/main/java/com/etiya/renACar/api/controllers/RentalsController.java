@@ -2,6 +2,8 @@ package com.etiya.renACar.api.controllers;
 
 import com.etiya.renACar.business.abstracts.RentalService;
 import com.etiya.renACar.business.model.requests.createRequest.CreateRentalRequest;
+import com.etiya.renACar.business.model.requests.updateRequest.UpdateKmInfoRequest;
+import com.etiya.renACar.business.model.requests.updateRequest.UpdateRentalRequest;
 import com.etiya.renACar.core.utilities.results.Result;
 import com.etiya.renACar.core.utilities.results.SuccessResult;
 import com.etiya.renACar.repository.abstracts.RentalRepository;
@@ -25,7 +27,6 @@ public class RentalsController {
 
     @PostMapping("/add")
     public Result add(@RequestBody CreateRentalRequest createRentalRequest){
-        System.out.println("----------------------"+createRentalRequest.getDeliveryDate().isBefore(LocalDate.now()));
         return this.rentalService.add(createRentalRequest);
 
     }
@@ -33,6 +34,12 @@ public class RentalsController {
     @GetMapping("/ boolean existsByCarId(int carId);")
     public boolean existsByCarId(@RequestParam int carId){
         return this.rentalService.existsByCarId(carId);
+    }
+
+    @PutMapping("/updateendkminfo")
+    Result UpdateEndKm(@RequestBody UpdateKmInfoRequest kmInfoRequest){
+        return this.rentalService.UpdateEndKm(kmInfoRequest);
+
     }
 
 }

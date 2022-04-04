@@ -1,6 +1,8 @@
 package com.etiya.renACar.business.abstracts;
 
 import com.etiya.renACar.business.model.requests.createRequest.CreateCarRequest;
+import com.etiya.renACar.business.model.requests.updateRequest.UpdateKmInfoRequest;
+import com.etiya.renACar.business.model.requests.updateRequest.UpdateRentalRequest;
 import com.etiya.renACar.business.model.requests.updateRequest.UpdateStatusForCarTableRequest;
 import com.etiya.renACar.business.model.responses.getResponseDto.CarResponseDto;
 import com.etiya.renACar.business.model.responses.listResponseDto.CarListResponse;
@@ -12,6 +14,7 @@ import java.util.List;
 public interface CarService {
     void add(CreateCarRequest createCarRequest);
     void updateMaintenanceStatus(int carId, CarStates type);
+    void updateCarKmInfo(UpdateKmInfoRequest updateKmInfoRequest);
 
     List<CarListResponse>getAll();
     List<CarListResponse>getAllByModelYear(int modelYear);

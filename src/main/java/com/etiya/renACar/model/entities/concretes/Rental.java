@@ -30,6 +30,9 @@ public class Rental extends Base { //kiralanma bilgisi
     @Column(name = "rent_status")
     private boolean rentStatus;//true kirada , false uygun
 
+    @Column(name = "end_km")
+    private double endKm;
+
     @ManyToOne
     @JoinColumn(name ="car_id")
     private Car car;
