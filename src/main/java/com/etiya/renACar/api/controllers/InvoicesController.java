@@ -8,10 +8,13 @@ import com.etiya.renACar.business.model.requests.deleteRequest.DeleteAdditionalP
 import com.etiya.renACar.business.model.requests.deleteRequest.DeleteInvoiceRequest;
 import com.etiya.renACar.business.model.requests.updateRequest.UpdateAdditionalProductRequest;
 import com.etiya.renACar.business.model.requests.updateRequest.UpdateInvoiceRequest;
+import com.etiya.renACar.business.model.responses.listResponseDto.InvoiceListResponse;
+import com.etiya.renACar.core.utilities.results.DataResult;
 import com.etiya.renACar.core.utilities.results.Result;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/invoices")
@@ -37,4 +40,11 @@ public class InvoicesController {
     public Result update(@RequestBody @Valid UpdateInvoiceRequest updateInvoiceRequest) {
         return this.invoiceService.update(updateInvoiceRequest);
     }
+
+    @GetMapping("/getall")
+    public DataResult<List<InvoiceListResponse>> getAllByUserUserId( @RequestParam int userId){
+        return this.invoiceService.getAllByUserUserId(userId);
+
+    }
+
 }

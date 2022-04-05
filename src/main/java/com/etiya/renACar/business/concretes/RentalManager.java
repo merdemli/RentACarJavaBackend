@@ -14,10 +14,12 @@ import com.etiya.renACar.business.model.requests.updateRequest.UpdateStatusForCa
 import com.etiya.renACar.business.model.responses.getResponseDto.CarResponseDto;
 import com.etiya.renACar.core.crossCuttingConcerns.exceptionHandling.BusinessException;
 import com.etiya.renACar.core.utilities.mapping.ModelMapperService;
+import com.etiya.renACar.core.utilities.results.DataResult;
 import com.etiya.renACar.core.utilities.results.ErrorResult;
 import com.etiya.renACar.core.utilities.results.Result;
 import com.etiya.renACar.core.utilities.results.SuccessResult;
 import com.etiya.renACar.model.entities.concretes.Brand;
+import com.etiya.renACar.model.entities.concretes.Invoice;
 import com.etiya.renACar.model.entities.concretes.OrderedAdditionalProduct;
 import com.etiya.renACar.model.entities.concretes.Rental;
 import com.etiya.renACar.model.enums.CarStates;
@@ -77,6 +79,19 @@ public class RentalManager implements RentalService {
         return new SuccessResult(BusinessMessages.RentMessages.RENT_UPDATED_SUCCESSFULLY);
     }
 
+    @Transactional
+    public Result UpdateEndKm(UpdateKmInfoRequest kmInfoRequest){
+        Rental rental =this.rentalRepository.getById(kmInfoRequest.getRentalId());
+
+        if(rental.getDeliveryDate().isEqual(LocalDate.now()) && !rental.isRentStatus()){
+            this.rentalRepository.updateEndKmInfoForRentalTable(kmInfoRequest.getRentalId(),kmInfoRequest.getEndKm());
+            this.carService.updateCarKmInfo(kmInfoRequest);
+            this.carService.updateMaintenanceStatus(kmInfoRequest.getCarId(),CarStates.available);
+        }
+        return new SuccessResult(BusinessMessages.RentMessages.END_KILOMETER_INFO_UPDATED_SUCCESSFULLY);
+    }
+
+
     //-----------Business Rules--------------------------------------------------------------
 
 
@@ -112,17 +127,9 @@ public class RentalManager implements RentalService {
         }throw new BusinessException(BusinessMessages.CarMessages.CAR_NOT_FOUND);// Öyle bir Rental yok
     }
 
-    @Transactional
-    public Result UpdateEndKm(UpdateKmInfoRequest kmInfoRequest){
-        Rental rental =this.rentalRepository.getById(kmInfoRequest.getRentalId());
 
-        if(rental.getDeliveryDate().isEqual(LocalDate.now())){
-            this.rentalRepository.updateEndKmInfoForRentalTable(kmInfoRequest.getRentalId(),kmInfoRequest.getEndKm());
-            this.carService.updateCarKmInfo(kmInfoRequest);
 
-        }
-        return new SuccessResult(BusinessMessages.RentMessages.END_KILOMETER_INFO_UPDATED_SUCCESSFULLY);
-    }
+
 
     @Override
     public boolean existsByCarId(int carId) {    //!!!!

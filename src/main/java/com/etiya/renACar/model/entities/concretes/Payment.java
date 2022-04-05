@@ -43,8 +43,8 @@ public class Payment extends Base {
     @OneToMany(mappedBy = "payment")
     private List<Invoice>invoices;
 
-    @OneToMany(mappedBy = "payment")
-    private List<OrderedAdditionalProduct>orderedAdditionalProducts;
+//    @OneToMany(mappedBy = "payment")
+//    private List<OrderedAdditionalProduct>orderedAdditionalProducts;
 
 
 
