@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface CarMaintenanceService {
 
-    void add(CreateCarMaintenanceRequest createCarMaintenanceRequest);
+    Result add(CreateCarMaintenanceRequest createCarMaintenanceRequest);
 
     List<CarMaintenanceListResponse> getByCarId(int carId);
 

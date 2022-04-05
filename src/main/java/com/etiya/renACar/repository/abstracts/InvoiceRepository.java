@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface InvoiceRepository extends JpaRepository<Invoice,Integer> {
 
-    List<Invoice> getByUser_UserId(int userId);
+    List<Invoice> getByUser_UserId(int userId); //müşteriye ait faturaların listesi
 
     //@Query("select i from Invoice i where i.createdAt between :startDate and :endDate")
     List<Invoice> getByCreatedAtBetween(LocalDate startDate, LocalDate endDate);

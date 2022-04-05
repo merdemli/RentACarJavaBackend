@@ -19,6 +19,6 @@ public interface RentalService {
 
 
 
-    //void checkIfCarisRented(int carId);
+    void checkIfCarisRented(int carId);
     //boolean existsByCarId(int carId);
 }

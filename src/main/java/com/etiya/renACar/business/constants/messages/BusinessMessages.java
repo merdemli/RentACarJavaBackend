@@ -129,5 +129,6 @@ public class BusinessMessages {
         public static final String CITIES_ARE_DIFFERENT = "CITIES_ARE_DIFFERENT";
         public static final String RENT_TOTAL_PRICE_CALCULATED_SUCCESSFULLY = "RENT_TOTAL_PRICE_CALCULATED_SUCCESSFULLY";
         public static final String RENT_NOT_FOUND = "RENT_NOT_FOUND";
+
     }
 }

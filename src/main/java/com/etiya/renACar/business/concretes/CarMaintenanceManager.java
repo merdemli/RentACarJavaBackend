@@ -10,6 +10,7 @@ import com.etiya.renACar.business.model.responses.getResponseDto.CarResponseDto;
 import com.etiya.renACar.business.model.responses.listResponseDto.CarMaintenanceListResponse;
 import com.etiya.renACar.core.crossCuttingConcerns.exceptionHandling.BusinessException;
 import com.etiya.renACar.core.utilities.mapping.ModelMapperService;
+import com.etiya.renACar.core.utilities.results.ErrorResult;
 import com.etiya.renACar.core.utilities.results.Result;
 import com.etiya.renACar.core.utilities.results.SuccessResult;
 import com.etiya.renACar.model.entities.concretes.CarMaintenance;
@@ -39,17 +40,19 @@ public class CarMaintenanceManager implements CarMaintenanceService {
     }
 
     @Override
-    public void add(CreateCarMaintenanceRequest createCarMaintenanceRequest) {
+    public Result add(CreateCarMaintenanceRequest createCarMaintenanceRequest) {
 
+        this.rentalService.checkIfCarisRented(createCarMaintenanceRequest.getCarId()); //araba kirada mı?
         checkIfCarisAlreadyInMaintenanceWithState(createCarMaintenanceRequest.getCarId());
         checkIfReturnDate(createCarMaintenanceRequest.getReturnedDate());
-        //checkIfCarisRented(createCarMaintenanceRequest.getCarId()); !!!hata var
+
 
             CarMaintenance maintenance = this.modelMapperService.forRequest()
                     .map(createCarMaintenanceRequest, CarMaintenance.class);
             this.carMaintenanceRepository.save(maintenance);
 
         this.carService.updateMaintenanceStatus(createCarMaintenanceRequest.getCarId(),CarStates.maintenance);
+        return new SuccessResult(BusinessMessages.MaintenanceMessages.CAR_MAINTENANCE_ADDED_SUCCESSFULLY);
     }
 
     @Override
@@ -74,11 +77,6 @@ public class CarMaintenanceManager implements CarMaintenanceService {
         return new SuccessResult(BusinessMessages.MaintenanceMessages.CAR_NOT_IN_MAINTENANCE);
     }
 
-//    public void checkIfCarAlreadyInMaintenance (int carId){  //rentManager için yazıldı
-//
-//        this.carMaintenanceRepository
-//    }
-
     private void checkIfCarisAlreadyInMaintenanceWithState(int carId) {
         CarResponseDto car1 = this.carService.getCarById(carId);
         if (car1.getStatus() == CarStates.maintenance)                          //1 CarTable'dan
@@ -95,8 +93,10 @@ public class CarMaintenanceManager implements CarMaintenanceService {
         }
     }
 
-//    private void checkIfCarisRented(int carId) {
-//        this.rentalService.checkIfCarisRented(carId);
-//    }
+//public void checkIfCarAlreadyInMaintenance (int carId){    //rentManager için yazıldı
+////        for(CarMaintenance c: this.carMaintenanceRepository.getByCarId(carId)){
+////            if(c.getCar().getStatus()==CarStates.maintenance)
+////                throw new BusinessException(BusinessMessages.CarMessages.CAR_ALREADY_IN_MAINTENANCE);
+////    }
 }
 

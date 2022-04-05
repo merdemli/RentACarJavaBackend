@@ -27,6 +27,7 @@ public interface CarService {
     CarResponseDto getCarById(int carId);
     //Car  getCarByIdAndStatus(int carId, CarStates type);
 
+    void checkIfCarInMaintenance(int carId); //CarRental'da kullanılacak
     boolean existsCarById(int carId);
 
 

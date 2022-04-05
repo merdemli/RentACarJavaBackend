@@ -1,12 +1,12 @@
 package com.etiya.renACar.business.concretes;
 
 import com.etiya.renACar.business.abstracts.CarService;
+import com.etiya.renACar.business.constants.messages.BusinessMessages;
 import com.etiya.renACar.business.model.requests.createRequest.CreateCarRequest;
 import com.etiya.renACar.business.model.requests.updateRequest.UpdateKmInfoRequest;
-import com.etiya.renACar.business.model.requests.updateRequest.UpdateRentalRequest;
-import com.etiya.renACar.business.model.requests.updateRequest.UpdateStatusForCarTableRequest;
 import com.etiya.renACar.business.model.responses.getResponseDto.CarResponseDto;
 import com.etiya.renACar.business.model.responses.listResponseDto.CarListResponse;
+import com.etiya.renACar.core.crossCuttingConcerns.exceptionHandling.BusinessException;
 import com.etiya.renACar.core.utilities.mapping.ModelMapperService;
 import com.etiya.renACar.model.entities.concretes.Car;
 import com.etiya.renACar.model.enums.CarStates;
@@ -129,6 +129,13 @@ public class CarManager implements CarService {
     @Override
     public boolean existsCarById(int carId) {
         return this.carRepository.existsById(carId); //bu metodu repoya yazmana geek yok
+    }
+
+    public void checkIfCarInMaintenance(int carId){
+        Car car = this.carRepository.getCarById(carId);
+        if(car.getStatus()==CarStates.maintenance)
+            throw new BusinessException(BusinessMessages.CarMessages.CAR_ALREADY_IN_MAINTENANCE);
+
     }
 
 }
