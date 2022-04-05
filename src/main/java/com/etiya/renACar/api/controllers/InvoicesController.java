@@ -11,9 +11,11 @@ import com.etiya.renACar.business.model.requests.updateRequest.UpdateInvoiceRequ
 import com.etiya.renACar.business.model.responses.listResponseDto.InvoiceListResponse;
 import com.etiya.renACar.core.utilities.results.DataResult;
 import com.etiya.renACar.core.utilities.results.Result;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -41,10 +43,16 @@ public class InvoicesController {
         return this.invoiceService.update(updateInvoiceRequest);
     }
 
-    @GetMapping("/getall")
-    public DataResult<List<InvoiceListResponse>> getAllByUserUserId( @RequestParam int userId){
+    @GetMapping("/getallbyuser")
+    public DataResult<List<InvoiceListResponse>> getAllByUser( @RequestParam int userId){
         return this.invoiceService.getAllByUserUserId(userId);
 
+    }
+
+    @GetMapping("/getbycreateatbetween")
+    public DataResult<List<InvoiceListResponse>>getByCreateAtBetween(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate
+            , @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate){
+        return this.invoiceService.getByCreateAtBetween(startDate,endDate);
     }
 
 }

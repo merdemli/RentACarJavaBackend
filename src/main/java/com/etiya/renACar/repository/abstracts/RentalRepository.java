@@ -15,7 +15,7 @@ import java.util.List;
 public interface RentalRepository extends JpaRepository<Rental, Integer> {
 
     List<Rental> getAllByCarId(int carId);
-    boolean existsRentalByCar_Id(int carId);
+    //boolean existsByCar_CarId(int carId);
 
     @Modifying
     @Query ("update Rental r set r.endKm = ?2  where r.id =?1 ")

@@ -32,6 +32,7 @@ public class Invoice extends Base {
 
     @Column(name = "delivery_date")
     private LocalDate deliveryDate;
+
     @Column(name = "total_rent_day")
     private int totalRentDay;
 

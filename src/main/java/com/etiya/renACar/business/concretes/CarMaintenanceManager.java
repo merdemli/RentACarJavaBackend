@@ -87,7 +87,6 @@ public class CarMaintenanceManager implements CarMaintenanceService {
 
     }
 
-
     private void checkIfReturnDate(LocalDate returnDate) {
         if (returnDate != null) {
             if (!(returnDate.isBefore(LocalDate.now()) || returnDate.isEqual(LocalDate.now()))) {                                                          //2.
@@ -96,8 +95,8 @@ public class CarMaintenanceManager implements CarMaintenanceService {
         }
     }
 
-    private void checkIfCarisRented(int carId) {
-        this.rentalService.checkIfCarisRented(carId);
-    }
+//    private void checkIfCarisRented(int carId) {
+//        this.rentalService.checkIfCarisRented(carId);
+//    }
 }
 

@@ -24,6 +24,7 @@ import com.etiya.renACar.model.entities.concretes.OrderedAdditionalProduct;
 import com.etiya.renACar.model.entities.concretes.Rental;
 import com.etiya.renACar.model.enums.CarStates;
 import com.etiya.renACar.repository.abstracts.RentalRepository;
+import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -81,6 +82,7 @@ public class RentalManager implements RentalService {
 
     @Transactional
     public Result UpdateEndKm(UpdateKmInfoRequest kmInfoRequest){
+        checkIfRentalExist(kmInfoRequest.getRentalId());
         Rental rental =this.rentalRepository.getById(kmInfoRequest.getRentalId());
 
         if(rental.getDeliveryDate().isEqual(LocalDate.now()) && !rental.isRentStatus()){
@@ -117,24 +119,26 @@ public class RentalManager implements RentalService {
     }
 
     //true: kirada false: uygun To.Do,Entity
-    public void checkIfCarisRented(int carId) {    //o arabanın rental tablosundaki durumu   !!!!!!!!!!!
-        if(this.rentalRepository.existsRentalByCar_Id(carId)){//!!!!!!!!!!!!
-        for (Rental r : this.rentalRepository.getAllByCarId(carId)) {
-            if (r.isRentStatus()) { r.getCar().setStatus(CarStates.rented);
-                throw new BusinessException(BusinessMessages.CarMessages.CAR_ALREADY_IN_RENT);
-            }}
+//    public void checkIfCarisRented(int carId) {    //o arabanın rental tablosundaki durumu   !!!!!!!!!!!
+//        if(this.rentalRepository.existsByCarId(carId)){//!!!!!!!!!!!!
+//        for (Rental r : this.rentalRepository.getAllByCarId(carId)) {
+//            if (r.isRentStatus()) { r.getCar().setStatus(CarStates.rented);
+//                throw new BusinessException(BusinessMessages.CarMessages.CAR_ALREADY_IN_RENT);
+//            }}
+//
+//        }throw new BusinessException(BusinessMessages.CarMessages.CAR_NOT_FOUND);// Öyle bir Rental yok
+//    }
 
-        }throw new BusinessException(BusinessMessages.CarMessages.CAR_NOT_FOUND);// Öyle bir Rental yok
+    private void checkIfRentalExist(int rentalId){
+        if(!this.rentalRepository.existsById(rentalId))
+            throw new BusinessException(BusinessMessages.RentMessages.RENT_NOT_FOUND);
     }
 
 
-
-
-
-    @Override
-    public boolean existsByCarId(int carId) {    //!!!!
-        return this.rentalRepository.existsRentalByCar_Id(carId);
-    }
-
+//    @Override
+//    public boolean existsByCarId(int carId) {    //!!!!
+//        return this.rentalRepository.existsByCar_CarId(carId);
+//    }
+//
 
 }

@@ -17,7 +17,7 @@ public interface InvoiceService {
     Result delete(DeleteInvoiceRequest deleteInvoiceRequest);
     Result update(UpdateInvoiceRequest updateInvoiceRequest);
 
-    DataResult<List<Invoice>>findByCreatedDateBetween(LocalDate startDate, LocalDate endDate);
+    DataResult<List<InvoiceListResponse>>getByCreateAtBetween(LocalDate startDate, LocalDate endDate);
 
     DataResult<List<InvoiceListResponse>> getAllByUserUserId(int userId);
 }

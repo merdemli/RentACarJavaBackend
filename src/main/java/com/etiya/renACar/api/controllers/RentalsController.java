@@ -31,10 +31,10 @@ public class RentalsController {
 
     }
 
-    @GetMapping("/ boolean existsByCarId(int carId);")
-    public boolean existsByCarId(@RequestParam int carId){
-        return this.rentalService.existsByCarId(carId);
-    }
+//    @GetMapping("/ boolean existsByCarId(int carId);")
+//    public boolean existsByCarId(@RequestParam int carId){
+//        return this.rentalService.existsByCarId(carId);
+//    }
 
     @PutMapping("/updateendkminfo")
     Result UpdateEndKm(@RequestBody UpdateKmInfoRequest kmInfoRequest){

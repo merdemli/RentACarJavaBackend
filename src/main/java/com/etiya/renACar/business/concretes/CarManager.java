@@ -96,7 +96,6 @@ public class CarManager implements CarService {
     }*/
 
 
-
     @Override
     public void updateMaintenanceStatus(int carId, CarStates type) {  //
         Car car = this.carRepository.getCarById(carId);
@@ -109,7 +108,6 @@ public class CarManager implements CarService {
         car.setKmInfo(updateKmInfoRequest.getEndKm());
         this.carRepository.save(car);
     }
-
 
     private List<CarListResponse> map(List<Car> cars) {
         List<CarListResponse> dtos = cars.stream()//"stream of car" döner

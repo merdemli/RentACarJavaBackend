@@ -27,6 +27,7 @@ public class InvoiceManager implements InvoiceService {
 
     private InvoiceRepository invoiceRepository;
     private ModelMapperService modelMapperService;
+    private List<Invoice>invoices;
 
     public InvoiceManager(InvoiceRepository invoiceRepository, ModelMapperService modelMapperService) {
         this.invoiceRepository = invoiceRepository;
@@ -35,42 +36,43 @@ public class InvoiceManager implements InvoiceService {
 
     @Override
     public Result add(CreateInvoiceRequest createInvoiceRequest) {
-        Invoice invoice = this.modelMapperService.forRequest().map(createInvoiceRequest,Invoice.class);
+        Invoice invoice = this.modelMapperService.forRequest().map(createInvoiceRequest, Invoice.class);
         this.invoiceRepository.save(invoice);
         return new SuccessResult(BusinessMessages.InvoiceMessages.INVOICE_ADDED_SUCCESSFULLY);
     }
+
     @Override
     public Result delete(DeleteInvoiceRequest deleteInvoiceRequest) {
-        Invoice invoice = this.modelMapperService.forRequest().map(deleteInvoiceRequest,Invoice.class);
+        Invoice invoice = this.modelMapperService.forRequest().map(deleteInvoiceRequest, Invoice.class);
         this.invoiceRepository.delete(invoice);
         return new SuccessResult(BusinessMessages.InvoiceMessages.INVOICE_DELETED_SUCCESSFULLY);
     }
 
     @Override
     public Result update(UpdateInvoiceRequest updateInvoiceRequest) {
-        Invoice invoice = this.modelMapperService.forRequest().map(updateInvoiceRequest,Invoice.class);
+        Invoice invoice = this.modelMapperService.forRequest().map(updateInvoiceRequest, Invoice.class);
         this.invoiceRepository.save(invoice);
         return new SuccessResult(BusinessMessages.InvoiceMessages.INVOICE_UPDATED_SUCCESSFULLY);
     }
 
     @Override
-    public DataResult<List<Invoice>> findByCreatedDateBetween(LocalDate startDate, LocalDate endDate) {
-
-        return null;
+    public DataResult<List<InvoiceListResponse>>getByCreateAtBetween(LocalDate startDate, LocalDate endDate){
+        invoices = this.invoiceRepository.getByCreatedAtBetween(startDate, endDate);
+        return new SuccessDataResult<List<InvoiceListResponse>>(map(invoices)
+                ,BusinessMessages.InvoiceMessages.INVOICE_BETWEEN_START_DATE_AND_END_DATE_LISTED_SUCCESSFULLY);
     }
 
     @Override
     public DataResult<List<InvoiceListResponse>> getAllByUserUserId(int userId) {
-        List<Invoice>invoices = this.invoiceRepository.getByUser_UserId(userId);
-        return map(invoices);
+        invoices = this.invoiceRepository.getByUser_UserId(userId);
+        return new SuccessDataResult<List<InvoiceListResponse>>(map(invoices),
+                BusinessMessages.InvoiceMessages.INVOICES_LISTED_SUCCESSFULLY);
     }
 
-    private DataResult< List<InvoiceListResponse>> map(List<Invoice> invoices) {
-        List<InvoiceListResponse> dtos = invoices.stream()//"stream of car" döner
+    private List<InvoiceListResponse> map(List<Invoice> invoices) {
+        List<InvoiceListResponse> dtos = invoices.stream()
                 .map(invoice -> this.modelMapperService.forDto().map(invoice, InvoiceListResponse.class))
                 .collect(Collectors.toList());
-        return new SuccessDataResult<List<InvoiceListResponse>>
-                (dtos,BusinessMessages.InvoiceMessages.INVOICE_LISTED_SUCCESSFULLY);
+        return dtos;}
 
-    }
 }
