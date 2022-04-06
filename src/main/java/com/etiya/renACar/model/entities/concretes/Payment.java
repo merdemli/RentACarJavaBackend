@@ -25,7 +25,7 @@ public class Payment extends Base {
     private String creditCardNo;
 
     @Column(name = "first_name")
-    private String firstName;
+    private String cardHolder;
 
     @Column(name = "last_name")
     private String lastName;
@@ -36,6 +36,9 @@ public class Payment extends Base {
     @Column(name = "cvv")
     private String cvv;
 
+    @Column(name ="is_success")
+    private boolean isSuccess;
+
     @ManyToOne
     @JoinColumn(name = "rental_id")
     private Rental rental;
@@ -43,8 +46,8 @@ public class Payment extends Base {
     @OneToMany(mappedBy = "payment")
     private List<Invoice>invoices;
 
-//    @OneToMany(mappedBy = "payment")
-//    private List<OrderedAdditionalProduct>orderedAdditionalProducts;
+    @OneToMany(mappedBy = "payment")
+    private List<OrderedAdditionalProduct>orderedAdditionalProducts;
 
 
 

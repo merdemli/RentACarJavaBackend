@@ -33,12 +33,9 @@ public class OrderedAdditionalProduct extends Base {
 
     @Column(name = "total_price")
     private double totalPrice;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "payment_id")
-//    private Payment payment;
 
-
-
+    @ManyToOne
+    @JoinColumn(name = "payment_id")
+    private Payment payment;
 
 }

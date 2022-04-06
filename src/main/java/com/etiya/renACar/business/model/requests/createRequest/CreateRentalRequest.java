@@ -40,7 +40,6 @@ public class CreateRentalRequest {
     @NotNull
     private int deliveryCityId;
 
-    List<Integer> additionalProductIdList;
 
 
 }

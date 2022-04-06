@@ -131,4 +131,11 @@ public class BusinessMessages {
         public static final String RENT_NOT_FOUND = "RENT_NOT_FOUND";
 
     }
+
+    public class PaymentMessages{
+        public static final String PAYMENT_ADDED_SUCCESSFULLY = "PAYMENT_ADDED_SUCCESSFULLY";
+        public static final String PAYMENT_UPDATED_SUCCESSFULLY = "PAYMENT_UPDATED_SUCCESSFULLY";
+        public static final String PAYMENT_DELETED_SUCCESSFULLY = "PAYMENT_DELETED_SUCCESSFULLY";
+        public static final String PAYMENT_FAILED = "PAYMENT_FAILED";
+    }
 }

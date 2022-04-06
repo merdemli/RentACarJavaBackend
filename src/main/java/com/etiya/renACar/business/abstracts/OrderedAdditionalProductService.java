@@ -12,6 +12,5 @@ public interface OrderedAdditionalProductService {
     Result add(CreateOrderedAdditionalProductRequest createOrderedAdditionalProductRequest);
     Result delete(DeleteOrderedAdditionalProductRequest deleteOrderedAdditionalProductRequest);
     Result update(UpdateOrderedAdditionalProductRequest updateOrderedAdditionalProductRequest);
-    void addOrderedAdditionalProductForRental(int rentalId, List<Integer> additionalProductIdList);
     //rentalda ek hizmetler ekleme için kullanılacak
 }

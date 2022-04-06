@@ -1,6 +1,5 @@
 package com.etiya.renACar.business.concretes;
 
-import com.etiya.renACar.business.abstracts.CarMaintenanceService;
 import com.etiya.renACar.business.abstracts.CarService;
 import com.etiya.renACar.business.abstracts.OrderedAdditionalProductService;
 import com.etiya.renACar.business.abstracts.RentalService;
@@ -15,8 +14,6 @@ import com.etiya.renACar.core.utilities.mapping.ModelMapperService;
 import com.etiya.renACar.core.utilities.results.ErrorResult;
 import com.etiya.renACar.core.utilities.results.Result;
 import com.etiya.renACar.core.utilities.results.SuccessResult;
-import com.etiya.renACar.model.entities.concretes.Car;
-import com.etiya.renACar.model.entities.concretes.CarMaintenance;
 import com.etiya.renACar.model.entities.concretes.Rental;
 import com.etiya.renACar.model.enums.CarStates;
 import com.etiya.renACar.repository.abstracts.RentalRepository;
@@ -42,7 +39,6 @@ public class RentalManager implements RentalService {
         this.rentalRepository = rentalRepository;
         this.modelMapperService = modelMapperService;
         this.carService = carService;
-        this.orderedAdditionalProductService = orderedAdditionalProductService;
     }
 
     @Override
@@ -54,10 +50,6 @@ public class RentalManager implements RentalService {
 
         this.rentalRepository.save(rental);
         this.carService.updateMaintenanceStatus(createRentalRequest.getCarId(), CarStates.rented);
-
-        int rentalId = rental.getId();
-        List<Integer> additionalProductIdList = createRentalRequest.getAdditionalProductIdList();
-        this.orderedAdditionalProductService.addOrderedAdditionalProductForRental(rentalId, additionalProductIdList);
 
         return new SuccessResult(BusinessMessages.RentMessages.RENT_ADDED_SUCCESSFULLY);
     }

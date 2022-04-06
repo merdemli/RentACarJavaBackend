@@ -58,8 +58,4 @@ public class Rental extends Base { //kiralanma bilgisi
     @OneToMany(mappedBy = "rental")
     private List<Payment>payments;
 
-
-
-
-
 }

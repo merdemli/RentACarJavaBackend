@@ -55,18 +55,18 @@ public class OrderedAdditionalProductManager implements OrderedAdditionalProduct
     }
 
 
-    @Override
-    public void addOrderedAdditionalProductForRental(int rentalId, List<Integer> additionalProductIdList) {
-        CreateOrderedAdditionalProductRequest r = new CreateOrderedAdditionalProductRequest();
-
-        for(int additionalProductId :additionalProductIdList ){
-            //int orderedAdditionalProductId = additionalProductId;
-            r.setAdditionalProductId(additionalProductId);
-            r.setRentalId(rentalId);
-            add(r);
-        }
-
-    }
+//    @Override
+//    public void addOrderedAdditionalProductForRental(int rentalId, List<Integer> additionalProductIdList) {
+//        CreateOrderedAdditionalProductRequest r = new CreateOrderedAdditionalProductRequest();
+//
+//        for(int additionalProductId :additionalProductIdList ){
+//            //int orderedAdditionalProductId = additionalProductId;
+//            r.setAdditionalProductId(additionalProductId);
+//            r.setRentalId(rentalId);
+//            add(r);
+//        }
+//
+//    }
 
 
 }
