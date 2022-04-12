@@ -51,10 +51,10 @@ public class PaymentManager implements PaymentService {
         checkIfPaymentsuccess(payment);
 
         var result = this.rentalService.add(createPaymentRequest.getCreateRentalRequest());//rental eklendi
-        payment.setRental(result.getData()); //id'si payment'a set edildi
+        payment.setRental(result.getData()); 
 
         for (CreateOrderedAdditionalProductRequest c : createPaymentRequest.getOrderedAdditionalProductRequests()) {
-            c.setRentalId(result.getData().getId()); //id oap'a set edildi
+            c.setRentalId(result.getData().getId()); 
             this.orderedAdditionalProductService.add(c);
         }
 
@@ -62,7 +62,7 @@ public class PaymentManager implements PaymentService {
 
         CreateInvoiceRequest createInvoiceRequest = createPaymentRequest.getCreateInvoiceRequest();
         createInvoiceRequest.setRentalId(result.getData().getId());
-        //createInvoiceRequest.setPaymentId(paymentResult.getId()); //invoice için id'ler set edildi
+        //createInvoiceRequest.setPaymentId(paymentResult.getId()); 
         this.invoiceService.add(createInvoiceRequest);
 
         return new SuccessResult(BusinessMessages.PaymentMessages.PAYMENT_ADDED_SUCCESSFULLY);
