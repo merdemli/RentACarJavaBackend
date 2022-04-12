@@ -86,11 +86,23 @@ public class PaymentManager implements PaymentService {
         payment.setExpirationDate(createPaymentForExtendingRentalRequest.getExpirationDate());
         checkIfPaymentsuccess(payment);
 
-        this.rentalService.updateDeliveryDateForExtendingRental(createPaymentForExtendingRentalRequest.getCreateRentalDeliveryDateRequest());
-
+        this.rentalService.updateDeliveryDateForExtendingRental(createPaymentForExtendingRentalRequest
+                .getCreateRentalDeliveryDateRequest());
 
         CreateInvoiceRequest createInvoiceRequest = createPaymentForExtendingRentalRequest.getCreateInvoiceRequest();
+        Rental rental = this.rentalService.getById(createPaymentForExtendingRentalRequest
+                .getCreateRentalDeliveryDateRequest().getRentalId());
+
+        createInvoiceRequest.setUserId(rental.getUser().getUserId());
         this.invoiceService.add(createInvoiceRequest);
+
+
+        payment.setRental(rental);
+
+        payment.setUser(rental.getUser());
+
+        this.paymentRepository.save(payment);
+
         return new SuccessResult(BusinessMessages.PaymentMessages.PAYMENT_ADDED_SUCCESSFULLY);
     }
 

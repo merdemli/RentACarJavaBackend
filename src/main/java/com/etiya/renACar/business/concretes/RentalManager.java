@@ -14,6 +14,7 @@ import com.etiya.renACar.core.crossCuttingConcerns.exceptionHandling.BusinessExc
 import com.etiya.renACar.core.utilities.mapping.ModelMapperService;
 import com.etiya.renACar.core.utilities.results.*;
 import com.etiya.renACar.model.entities.concretes.Rental;
+import com.etiya.renACar.model.entities.concretes.User;
 import com.etiya.renACar.model.enums.CarStates;
 import com.etiya.renACar.repository.abstracts.RentalRepository;
 import org.springframework.stereotype.Service;
@@ -102,7 +103,15 @@ public class RentalManager implements RentalService {
         return new ErrorResult("Böyle bir kiralama sistemde mevcut değil");
     }
 
+    @Override
+    public Rental getById(int rentalId) {
+        Rental rental = this.rentalRepository.getById(rentalId);
+        return rental;
+    }
     //kullanıcı kiralama süresini uzatmak isterse aynı rental üzerinden uzatıcak ve ek ödeme yapacak
+
+
+
 
 
     //-----------Business Rules--------------------------------------------------------------

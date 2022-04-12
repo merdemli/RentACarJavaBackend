@@ -4,6 +4,7 @@ import com.etiya.renACar.business.abstracts.RentalService;
 import com.etiya.renACar.business.model.requests.createRequest.CreateRentalRequest;
 import com.etiya.renACar.business.model.requests.updateRequest.UpdateKmInfoRequest;
 import com.etiya.renACar.core.utilities.results.Result;
+import com.etiya.renACar.model.entities.concretes.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

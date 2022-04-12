@@ -8,6 +8,7 @@ import com.etiya.renACar.business.model.requests.updateRequest.UpdateRentalReque
 import com.etiya.renACar.core.utilities.results.DataResult;
 import com.etiya.renACar.core.utilities.results.Result;
 import com.etiya.renACar.model.entities.concretes.Rental;
+import com.etiya.renACar.model.entities.concretes.User;
 
 public interface RentalService {
 
@@ -17,6 +18,10 @@ public interface RentalService {
     Result UpdateEndKm(UpdateKmInfoRequest kmInfoRequest);
     Result updateDeliveryDateForExtendingRental(CreateRentalDeliveryDateRequest
                                                         createRentalDeliveryDateRequest);
+
+    Rental getById(int rentalId);
+
+
 
     boolean checkIfRentalExist(int rentalId);
     void checkIfCarisRented(int carId);
