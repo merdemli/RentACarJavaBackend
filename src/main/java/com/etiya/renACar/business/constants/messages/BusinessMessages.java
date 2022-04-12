@@ -103,6 +103,8 @@ public class BusinessMessages {
         public static final String USER_UPDATED_SUCCESSFULLY = "USER_UPDATED_SUCCESSFULLY";
         public static final String USER_NOT_FOUND = "USER_NOT_FOUND";
         public static final String EMAIL_ALREADY_EXISTS = "EMAIL_ALREADY_EXISTS";
+        public static final String USER_ADDED_SUCCESSFULLY = "USER_ADDED_SUCCESSFULLY";
+
     }
 
     public class InvoiceMessages{

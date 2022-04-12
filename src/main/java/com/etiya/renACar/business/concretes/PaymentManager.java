@@ -1,9 +1,6 @@
 package com.etiya.renACar.business.concretes;
 
-import com.etiya.renACar.business.abstracts.InvoiceService;
-import com.etiya.renACar.business.abstracts.OrderedAdditionalProductService;
-import com.etiya.renACar.business.abstracts.PaymentService;
-import com.etiya.renACar.business.abstracts.RentalService;
+import com.etiya.renACar.business.abstracts.*;
 import com.etiya.renACar.business.constants.messages.BusinessMessages;
 import com.etiya.renACar.business.model.requests.createRequest.*;
 import com.etiya.renACar.core.adapters.abstracts.BaseBankPaymentServiceAdapter;
@@ -11,8 +8,10 @@ import com.etiya.renACar.core.crossCuttingConcerns.exceptionHandling.BusinessExc
 import com.etiya.renACar.core.utilities.results.ErrorResult;
 import com.etiya.renACar.core.utilities.results.Result;
 import com.etiya.renACar.core.utilities.results.SuccessResult;
+import com.etiya.renACar.model.entities.concretes.IndividualCustomer;
 import com.etiya.renACar.model.entities.concretes.Payment;
 import com.etiya.renACar.model.entities.concretes.Rental;
+import com.etiya.renACar.model.entities.concretes.User;
 import com.etiya.renACar.repository.abstracts.PaymentRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -27,15 +26,19 @@ public class PaymentManager implements PaymentService {
     private RentalService rentalService;
     private OrderedAdditionalProductService orderedAdditionalProductService;
     private BaseBankPaymentServiceAdapter baseBankPaymentServiceAdapter;
+    private UserService userService;
 
     public PaymentManager(PaymentRepository paymentRepository, InvoiceService invoiceService,
                           RentalService rentalService, OrderedAdditionalProductService orderedAdditionalProductService,
-                          @Qualifier("qnbfinansbank") BaseBankPaymentServiceAdapter baseBankPaymentServiceAdapter) {
+                          @Qualifier("qnbfinansbank") BaseBankPaymentServiceAdapter baseBankPaymentServiceAdapter,
+                          UserService userService) {
         this.paymentRepository = paymentRepository;
         this.invoiceService = invoiceService;
         this.rentalService = rentalService;
         this.orderedAdditionalProductService = orderedAdditionalProductService;
         this.baseBankPaymentServiceAdapter = baseBankPaymentServiceAdapter;
+        this.userService = userService;
+
     }
 
     @Transactional
@@ -58,7 +61,9 @@ public class PaymentManager implements PaymentService {
             this.orderedAdditionalProductService.add(c);
         }
 
-        //Payment paymentResult = this.paymentRepository.save(payment);
+        User user = result.getData().getUser();
+        payment.setUser(user);
+        Payment paymentResult = this.paymentRepository.save(payment);
 
         CreateInvoiceRequest createInvoiceRequest = createPaymentRequest.getCreateInvoiceRequest();
         createInvoiceRequest.setRentalId(result.getData().getId());
@@ -79,7 +84,6 @@ public class PaymentManager implements PaymentService {
         payment.setCardHolder(createPaymentForExtendingRentalRequest.getCardHolder());
         payment.setCvv(createPaymentForExtendingRentalRequest.getCvv());
         payment.setExpirationDate(createPaymentForExtendingRentalRequest.getExpirationDate());
-
         checkIfPaymentsuccess(payment);
 
         this.rentalService.updateDeliveryDateForExtendingRental(createPaymentForExtendingRentalRequest.getCreateRentalDeliveryDateRequest());
