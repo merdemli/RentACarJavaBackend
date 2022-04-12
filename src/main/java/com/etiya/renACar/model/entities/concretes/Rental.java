@@ -24,8 +24,11 @@ public class Rental extends Base { //kiralanma bilgisi
     @Column(name = "rent_date")
     private LocalDate rentDate;
 
+    @Column(name = "rent_return_date")
+    private LocalDate rentReturnDate; //ilk rental eklerken kullanılacak
+
     @Column(name = "delivery_date")
-    private LocalDate deliveryDate;
+    private LocalDate deliveryDate;  //teslim tarihini uzatırsa kullanılacak ve 2. ödeme alınacak
 
     @Column(name = "rent_status")
     private boolean rentStatus;//true kirada , false uygun
@@ -56,6 +59,6 @@ public class Rental extends Base { //kiralanma bilgisi
     private List<Invoice>invoices;  //örnegin kiralama süresini uzattı,birden çok faturası olabilir
 
     @OneToMany(mappedBy = "rental")
-    private List<Payment>payments;
+    private List<Payment>payments; //birden çok ödemesi de olabilir
 
 }

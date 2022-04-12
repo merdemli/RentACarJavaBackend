@@ -24,11 +24,8 @@ public class Payment extends Base {
     @Column(name = "credit_card_no")
     private String creditCardNo;
 
-    @Column(name = "first_name")
+    @Column(name = "cardHolder")
     private String cardHolder;
-
-    @Column(name = "last_name")
-    private String lastName;
 
     @Column(name = "expiration_date")
     private LocalDate expirationDate;
@@ -36,18 +33,19 @@ public class Payment extends Base {
     @Column(name = "cvv")
     private String cvv;
 
-    @Column(name ="is_success")
-    private boolean isSuccess;
-
     @ManyToOne
     @JoinColumn(name = "rental_id")
     private Rental rental;
 
-    @OneToMany(mappedBy = "payment")
-    private List<Invoice>invoices;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @OneToMany(mappedBy = "payment")
-    private List<OrderedAdditionalProduct>orderedAdditionalProducts;
+//    @OneToMany(mappedBy = "payment")
+//    private List<Invoice>invoices;  zaten rental da var
+////
+//    @OneToMany(mappedBy = "payment")
+//    private List<OrderedAdditionalProduct>orderedAdditionalProducts;
 
 
 

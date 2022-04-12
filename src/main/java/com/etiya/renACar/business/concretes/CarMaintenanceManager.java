@@ -51,7 +51,7 @@ public class CarMaintenanceManager implements CarMaintenanceService {
                     .map(createCarMaintenanceRequest, CarMaintenance.class);
             this.carMaintenanceRepository.save(maintenance);
 
-        this.carService.updateMaintenanceStatus(createCarMaintenanceRequest.getCarId(),CarStates.maintenance);
+        this.carService.updateStatus(createCarMaintenanceRequest.getCarId(),CarStates.maintenance);
         return new SuccessResult(BusinessMessages.MaintenanceMessages.CAR_MAINTENANCE_ADDED_SUCCESSFULLY);
     }
 

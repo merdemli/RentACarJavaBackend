@@ -3,15 +3,9 @@ package com.etiya.renACar.api.controllers;
 import com.etiya.renACar.business.abstracts.RentalService;
 import com.etiya.renACar.business.model.requests.createRequest.CreateRentalRequest;
 import com.etiya.renACar.business.model.requests.updateRequest.UpdateKmInfoRequest;
-import com.etiya.renACar.business.model.requests.updateRequest.UpdateRentalRequest;
 import com.etiya.renACar.core.utilities.results.Result;
-import com.etiya.renACar.core.utilities.results.SuccessResult;
-import com.etiya.renACar.repository.abstracts.RentalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Provider;
-import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/rentals")

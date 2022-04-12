@@ -26,18 +26,23 @@ public class CreatePaymentRequest {
 
     private String cardHolder;
 
-    private LocalDate expirationDate;
+    private LocalDate expirationDate;  // TODO: 4/11/2022 bu kısım creditCard bölümüne taşınacak
 
     private String cvv;
+
+    private int userId;
 
 //------------------------Rental-----------------
 
     private CreateRentalRequest createRentalRequest;
 
-    //-----------------------------------------------Invoice
+    //--------------------Invoice----------------------------
 
     private List<CreateOrderedAdditionalProductRequest>orderedAdditionalProductRequests;
 
-//----------------------------------------------OrderedAdditionalProduct
+//------------------OrderedAdditionalProduct-----------------------
     private CreateInvoiceRequest createInvoiceRequest;
 }
+
+//User eklenmiyor çünkü sisteme kayt olunmadan araba kiralanamıyor bu sistemde
+// TODO: 4/11/2022 sisteme kullanıcı kaydı ekle

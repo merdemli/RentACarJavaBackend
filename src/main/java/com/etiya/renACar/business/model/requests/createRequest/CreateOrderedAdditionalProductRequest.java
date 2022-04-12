@@ -21,7 +21,9 @@ public class CreateOrderedAdditionalProductRequest {
 
     private int additionalProductId;
 
-    private int paymentId;
+    //private int paymentId;
+
+
 
 
 

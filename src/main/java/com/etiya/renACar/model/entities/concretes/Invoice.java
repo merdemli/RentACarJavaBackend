@@ -47,8 +47,6 @@ public class Invoice extends Base {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "payment_id")
-    private Payment payment;
+
 
 }

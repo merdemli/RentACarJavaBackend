@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface CarService {
     void add(CreateCarRequest createCarRequest);
-    void updateMaintenanceStatus(int carId, CarStates type);
+    void updateStatus(int carId, CarStates type);
     void updateCarKmInfo(UpdateKmInfoRequest updateKmInfoRequest);
 
     List<CarListResponse>getAll();

@@ -24,7 +24,7 @@ public class CreateRentalRequest {
     @NotNull
     private LocalDate rentDate;
     @NotNull
-    private LocalDate deliveryDate;
+    private LocalDate rentReturnDate; // ilk rental eklemede kullanılacak tarih
 
     private boolean rentStatus =true ;//true kirada , false uygun
 

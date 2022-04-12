@@ -17,6 +17,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class CreateInvoiceRequest  {
 
+    public CreateInvoiceRequest(int rentalId) {
+        this.rentalId = rentalId;
+    }
+
     @JsonIgnore
     private int id;
 
@@ -31,7 +35,11 @@ public class CreateInvoiceRequest  {
     private LocalDate rentDate;
 
     private LocalDate deliveryDate;
+
     private int totalRentDay;
+
+    //private int paymentId;
+
 
 
 

@@ -27,6 +27,9 @@ public class User extends Base {
     @Column(name = "password")
     private String password;
 
+    @OneToMany(mappedBy = "user")
+    private List<Payment>payments;
+
     @OneToMany(mappedBy = "user") //rental'daki user alanını bulur
     private List<Rental> rentals;
 

@@ -17,7 +17,7 @@ public class UpdateRentalRequest {
 
     private LocalDate rentDate;
 
-    private LocalDate deliveryDate;
+    private LocalDate rentReturnDate;
 
     private boolean rentStatus;//true kirada , false uygun
 

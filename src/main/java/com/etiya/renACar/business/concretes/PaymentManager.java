@@ -5,14 +5,14 @@ import com.etiya.renACar.business.abstracts.OrderedAdditionalProductService;
 import com.etiya.renACar.business.abstracts.PaymentService;
 import com.etiya.renACar.business.abstracts.RentalService;
 import com.etiya.renACar.business.constants.messages.BusinessMessages;
-import com.etiya.renACar.business.model.requests.createRequest.CreateOrderedAdditionalProductRequest;
-import com.etiya.renACar.business.model.requests.createRequest.CreatePaymentRequest;
+import com.etiya.renACar.business.model.requests.createRequest.*;
 import com.etiya.renACar.core.adapters.abstracts.BaseBankPaymentServiceAdapter;
 import com.etiya.renACar.core.crossCuttingConcerns.exceptionHandling.BusinessException;
 import com.etiya.renACar.core.utilities.results.ErrorResult;
 import com.etiya.renACar.core.utilities.results.Result;
 import com.etiya.renACar.core.utilities.results.SuccessResult;
 import com.etiya.renACar.model.entities.concretes.Payment;
+import com.etiya.renACar.model.entities.concretes.Rental;
 import com.etiya.renACar.repository.abstracts.PaymentRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -39,9 +39,8 @@ public class PaymentManager implements PaymentService {
     }
 
     @Transactional
-    @Override
+    @Override   // kullanıcı araba kiralayabilmesi için sisteme kayıtlı olmalı, Yeni bir rental için kullanılacak sistemm
     public Result createPayment(CreatePaymentRequest createPaymentRequest) {
-
 
         Payment payment = new Payment();
         payment.setCreditCardNo(createPaymentRequest.getCreditCardNo());
@@ -51,19 +50,47 @@ public class PaymentManager implements PaymentService {
 
         checkIfPaymentsuccess(payment);
 
-        this.rentalService.add(createPaymentRequest.getCreateRentalRequest());
+        var result = this.rentalService.add(createPaymentRequest.getCreateRentalRequest());//rental eklendi
+        payment.setRental(result.getData()); //id'si payment'a set edildi
+
         for (CreateOrderedAdditionalProductRequest c : createPaymentRequest.getOrderedAdditionalProductRequests()) {
+            c.setRentalId(result.getData().getId()); //id oap'a set edildi
             this.orderedAdditionalProductService.add(c);
         }
-        this.invoiceService.add(createPaymentRequest.getCreateInvoiceRequest());
 
-        this.paymentRepository.save(payment);
+        //Payment paymentResult = this.paymentRepository.save(payment);
+
+        CreateInvoiceRequest createInvoiceRequest = createPaymentRequest.getCreateInvoiceRequest();
+        createInvoiceRequest.setRentalId(result.getData().getId());
+        //createInvoiceRequest.setPaymentId(paymentResult.getId()); //invoice için id'ler set edildi
+        this.invoiceService.add(createInvoiceRequest);
 
         return new SuccessResult(BusinessMessages.PaymentMessages.PAYMENT_ADDED_SUCCESSFULLY);
 
-
     }
 
+    @Transactional
+    @Override
+    public Result createPaymentForExtendingRental(CreatePaymentForExtendingRentalRequest
+                                                              createPaymentForExtendingRentalRequest) {
+
+        Payment payment = new Payment();
+        payment.setCreditCardNo(createPaymentForExtendingRentalRequest.getCreditCardNo());
+        payment.setCardHolder(createPaymentForExtendingRentalRequest.getCardHolder());
+        payment.setCvv(createPaymentForExtendingRentalRequest.getCvv());
+        payment.setExpirationDate(createPaymentForExtendingRentalRequest.getExpirationDate());
+
+        checkIfPaymentsuccess(payment);
+
+        this.rentalService.updateDeliveryDateForExtendingRental(createPaymentForExtendingRentalRequest.getCreateRentalDeliveryDateRequest());
+
+
+        CreateInvoiceRequest createInvoiceRequest = createPaymentForExtendingRentalRequest.getCreateInvoiceRequest();
+        this.invoiceService.add(createInvoiceRequest);
+        return new SuccessResult(BusinessMessages.PaymentMessages.PAYMENT_ADDED_SUCCESSFULLY);
+    }
+
+//---------------------------Business Rules----------------------------------------------------
     private void  checkIfPaymentsuccess(Payment payment){
         if (!this.baseBankPaymentServiceAdapter.checkIfPaymentSuccess(payment)) {
             throw new BusinessException(BusinessMessages.PaymentMessages.PAYMENT_FAILED);

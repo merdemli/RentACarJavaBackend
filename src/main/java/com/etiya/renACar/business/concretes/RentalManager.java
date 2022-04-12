@@ -4,6 +4,7 @@ import com.etiya.renACar.business.abstracts.CarService;
 import com.etiya.renACar.business.abstracts.OrderedAdditionalProductService;
 import com.etiya.renACar.business.abstracts.RentalService;
 import com.etiya.renACar.business.constants.messages.BusinessMessages;
+import com.etiya.renACar.business.model.requests.createRequest.CreateRentalDeliveryDateRequest;
 import com.etiya.renACar.business.model.requests.createRequest.CreateRentalRequest;
 import com.etiya.renACar.business.model.requests.deleteRequest.DeleteRentalRequest;
 import com.etiya.renACar.business.model.requests.updateRequest.UpdateKmInfoRequest;
@@ -11,9 +12,7 @@ import com.etiya.renACar.business.model.requests.updateRequest.UpdateRentalReque
 import com.etiya.renACar.business.model.responses.getResponseDto.CarResponseDto;
 import com.etiya.renACar.core.crossCuttingConcerns.exceptionHandling.BusinessException;
 import com.etiya.renACar.core.utilities.mapping.ModelMapperService;
-import com.etiya.renACar.core.utilities.results.ErrorResult;
-import com.etiya.renACar.core.utilities.results.Result;
-import com.etiya.renACar.core.utilities.results.SuccessResult;
+import com.etiya.renACar.core.utilities.results.*;
 import com.etiya.renACar.model.entities.concretes.Rental;
 import com.etiya.renACar.model.enums.CarStates;
 import com.etiya.renACar.repository.abstracts.RentalRepository;
@@ -21,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.List;
 
 @Service
 public class RentalManager implements RentalService {
@@ -32,26 +30,27 @@ public class RentalManager implements RentalService {
     private OrderedAdditionalProductService orderedAdditionalProductService;
 
 
-
     public RentalManager(RentalRepository rentalRepository, ModelMapperService modelMapperService,
                          CarService carService, OrderedAdditionalProductService orderedAdditionalProductService
-                         ) {
+    ) {
         this.rentalRepository = rentalRepository;
         this.modelMapperService = modelMapperService;
         this.carService = carService;
     }
 
     @Override
-    public Result add(CreateRentalRequest createRentalRequest) {
+    public DataResult<Rental> add(CreateRentalRequest createRentalRequest) {
 
         Rental rental = this.modelMapperService.forRequest().map(createRentalRequest, Rental.class);
-        checkIfCarAlreadyInRent(rental);
-        this.carService.checkIfCarInMaintenance(createRentalRequest.getCarId());
 
-        this.rentalRepository.save(rental);
-        this.carService.updateMaintenanceStatus(createRentalRequest.getCarId(), CarStates.rented);
+        checkIfCarAlreadyInRent(rental); //araba kirada mı
+        this.carService.checkIfCarInMaintenance(createRentalRequest.getCarId()); //araba bakımda mı
 
-        return new SuccessResult(BusinessMessages.RentMessages.RENT_ADDED_SUCCESSFULLY);
+        rental = this.rentalRepository.save(rental);
+
+        this.carService.updateStatus(createRentalRequest.getCarId(), CarStates.rented);
+
+        return new SuccessDataResult<Rental>(rental, BusinessMessages.RentMessages.RENT_ADDED_SUCCESSFULLY);
     }
 
     @Override
@@ -68,16 +67,23 @@ public class RentalManager implements RentalService {
         return new SuccessResult(BusinessMessages.RentMessages.RENT_UPDATED_SUCCESSFULLY);
     }
 
+    /*public Result updateRentalDeliveryDate(UpdateRentalDeliveryDateRequest updateRentalDeliveryDateRequest){
+
+        checkIfRentalExistisOk(updateRentalDeliveryDateRequest.getId(),
+                updateRentalDeliveryDateRequest.getDeliveryDate());
+        return new SuccessResult("DeliveryDate added");
+    }
+*/
 
     @Transactional
     public Result UpdateEndKm(UpdateKmInfoRequest kmInfoRequest) {
-        checkIfRentalExist(kmInfoRequest.getRentalId());
+        checkIfRentalNotExist(kmInfoRequest.getRentalId());
         Rental rental = this.rentalRepository.getById(kmInfoRequest.getRentalId());
 
-        if (rental.getDeliveryDate().isEqual(LocalDate.now()) && !rental.isRentStatus()) {
+        if (rental.getRentReturnDate().isEqual(LocalDate.now()) && !rental.isRentStatus()) {
             this.rentalRepository.updateEndKmInfoForRentalTable(kmInfoRequest.getRentalId(), kmInfoRequest.getEndKm());
             this.carService.updateCarKmInfo(kmInfoRequest);
-            this.carService.updateMaintenanceStatus(kmInfoRequest.getCarId(), CarStates.available);
+            this.carService.updateStatus(kmInfoRequest.getCarId(), CarStates.available);
             return new SuccessResult(BusinessMessages.RentMessages.END_KILOMETER_INFO_UPDATED_SUCCESSFULLY);
         }
         return new ErrorResult(BusinessMessages.CarMessages.CAR_ALREADY_IN_RENT);
@@ -85,20 +91,34 @@ public class RentalManager implements RentalService {
         //araba kiradan dönmüş mü? dönmüşse eğer aynı gün km bilgisi düzenlenip, durumlar car tablosunda da güncellenir
         //güncelleme araba kiradan döndüğü gün yapılmak zorundadır
     }
+
+    public Result updateDeliveryDateForExtendingRental(CreateRentalDeliveryDateRequest createRentalDeliveryDateRequest) {
+        if(checkIfRentalExist(createRentalDeliveryDateRequest.getRentalId())){
+            Rental rental = this.rentalRepository.getById(createRentalDeliveryDateRequest.getRentalId());
+            rental.setDeliveryDate(createRentalDeliveryDateRequest.getDeliveryDate());
+            this.rentalRepository.save(rental);
+            //return new SuccessResult("Kiralama Tarihi uzatıldı");
+        }
+        return new ErrorResult("Böyle bir kiralama sistemde mevcut değil");
+    }
+
+    //kullanıcı kiralama süresini uzatmak isterse aynı rental üzerinden uzatıcak ve ek ödeme yapacak
+
+
     //-----------Business Rules--------------------------------------------------------------
 
 
     private Result checkIfCarAlreadyInRent(Rental rental) {
 
         checkIfCarisRented(rental.getCar().getId());
-        checkIfDeliveryDate(rental.getDeliveryDate());
+        checkIfRentReturnDate(rental.getRentReturnDate());
         checkIfCarisAlreadyisRentedWithState(rental.getCar().getId());
         return new SuccessResult(BusinessMessages.RentMessages.CAR_NOT_IN_RENT);
     }
 
-    private void checkIfDeliveryDate(LocalDate deliveryDate) {
-        if (deliveryDate == null) throw new BusinessException("tesim tarihi boş bırakılamaz");
-        if (deliveryDate.isBefore(LocalDate.now())) {
+    private void checkIfRentReturnDate(LocalDate rentReturnDate) {
+        if (rentReturnDate == null) throw new BusinessException("tesim tarihi boş bırakılamaz");
+        if (rentReturnDate.isBefore(LocalDate.now())) {
             throw new BusinessException("teslim tarihi uygun değildir");
         }
     }
@@ -119,11 +139,23 @@ public class RentalManager implements RentalService {
         }
     }
 
-    private void checkIfRentalExist(int rentalId) {
+    private void checkIfRentalNotExist(int rentalId) {
         if (!this.rentalRepository.existsById(rentalId))
             throw new BusinessException(BusinessMessages.RentMessages.RENT_NOT_FOUND);
     }
 
+    //    private void checkIfRentalExistisOk(int rentalId, LocalDate deliveryDate){
+//       if(checkIfRentalExist(rentalId)) {
+//           Rental rental = this.rentalRepository.getById(rentalId);
+//           rental.setDeliveryDate(deliveryDate);
+//       }
+//    }
+//
+    public boolean checkIfRentalExist(int rentalId) {
+       return this.rentalRepository.existsById(rentalId);
+    }
 
 
 }
+
+

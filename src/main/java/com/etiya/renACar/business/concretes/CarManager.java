@@ -88,16 +88,11 @@ public class CarManager implements CarService {
         CarResponseDto dto = this.modelMapperService.forDto().map(car, CarResponseDto.class);
         return dto;
     }
-/*
-    @Override
-    public Car getCarByIdAndStatus(int carId, CarStates type) {
-        Car car = this.carRepository.getCarByIdAndStatus(carId,type);
-        return car;
-    }*/
+
 
 
     @Override
-    public void updateMaintenanceStatus(int carId, CarStates type) {  //
+    public void updateStatus(int carId, CarStates type) {  //
         Car car = this.carRepository.getCarById(carId);
         car.setStatus(type);
         this.carRepository.save(car);
