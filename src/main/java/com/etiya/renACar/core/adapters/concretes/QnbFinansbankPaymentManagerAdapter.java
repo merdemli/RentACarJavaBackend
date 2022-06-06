@@ -23,4 +23,3 @@ public class QnbFinansbankPaymentManagerAdapter implements BaseBankPaymentServic
                 payment.getCvv(),payment.getCreditCardNo(),payment.getCardHolder());
     }
 }
-//qnbfinansbankservice 'i burada new'leyebiliriz de

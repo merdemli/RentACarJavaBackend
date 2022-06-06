@@ -50,4 +50,11 @@ public class AdditionalProductManager implements AdditionalProductService {
         return new SuccessResult(BusinessMessages.AdditionalProductMessages.ADDITIONAL_PRODUCT_UPDATED_SUCCESSFULLY);
 
     }
+
+    @Override
+    public AdditionalProduct getById(int additionalProductId) {
+
+        return this.additionalProductRepository.getById(additionalProductId);
+
+    }
 }

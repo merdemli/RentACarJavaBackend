@@ -22,7 +22,6 @@ public class PaymentsController {
     @PostMapping("/createpayment")
     public Result createPayment(@RequestBody CreatePaymentRequest createPaymentRequest){
         return this.paymentService.createPayment(createPaymentRequest);
-
     }
 
     @PostMapping("/createpaymentforextendingrental")

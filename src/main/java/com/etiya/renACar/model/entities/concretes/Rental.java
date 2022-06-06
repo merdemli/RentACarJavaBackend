@@ -1,17 +1,16 @@
 package com.etiya.renACar.model.entities.concretes;
 
 import com.etiya.renACar.model.entities.abstracts.Base;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "rentals")
 public class Rental extends Base { //kiralanma bilgisi
@@ -35,6 +34,9 @@ public class Rental extends Base { //kiralanma bilgisi
 
     @Column(name = "end_km")
     private double endKm;
+
+    @Column(name = "daily_price")
+    private Double dailyPrice;
 
     @ManyToOne
     @JoinColumn(name ="car_id")

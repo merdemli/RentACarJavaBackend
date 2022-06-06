@@ -34,7 +34,7 @@ public class CreateIndividualCustomerRequest {
     private String nationalIdentity;
 
     @NotNull
-    @Size(min = 2, max = 20)
+    @Size(min = 2, max = 30)
     @Email(message = "This value is not email!")
     private String email;
 

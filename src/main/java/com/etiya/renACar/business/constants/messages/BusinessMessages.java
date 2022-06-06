@@ -1,6 +1,31 @@
 package com.etiya.renACar.business.constants.messages;
 
 public class BusinessMessages {
+
+    public class RentMessages{
+        public static final String RENT_ADDED_SUCCESSFULLY = "RENT_ADDED_SUCCESSFULLY";
+        public static final String RENT_UPDATED_SUCCESSFULLY = "RENT_UPDATED_SUCCESSFULLY";
+        public static final String END_KILOMETER_INFO_UPDATED_SUCCESSFULLY = "END_KILOMETER_INFO_UPDATED_SUCCESSFULLY";
+        public static final String RENT_DELETED_SUCCESSFULLY = "RENT_DELETED_SUCCESSFULLY";
+        public static final String DELIVERY_DATE_IS_NOT_SUITABLE = "DELIVERY_DATE_IS_NOT_SUITABLE";
+        public static final String CAR_NOT_IN_RENT = "CAR_NOT_IN_RENT";
+        public static final String CITIES_ARE_SAME = "CITIES_ARE_SAME";
+        public static final String CITIES_ARE_DIFFERENT = "CITIES_ARE_DIFFERENT";
+        public static final String RENT_TOTAL_PRICE_CALCULATED_SUCCESSFULLY = "RENT_TOTAL_PRICE_CALCULATED_SUCCESSFULLY";
+        public static final String RENT_TOTAL_PRICE_CALCULATED_FAILED = "RENT_TOTAL_PRICE_CALCULATED_FAILED";
+        public static final String RENT_NOT_FOUND = "RENT_NOT_FOUND";
+        public static final String RENT_FETCHED_SUCCESSFULLY = "RENT_FETCHED_SUCCESSFULLY";
+    }
+
+    public class UserMessages{
+        public static final String USERS_LISTED_SUCCESSFULLY = "USERS_LISTED_SUCCESSFULLY";
+        public static final String USER_UPDATED_SUCCESSFULLY = "USER_UPDATED_SUCCESSFULLY";
+        public static final String USER_NOT_FOUND = "USER_NOT_FOUND";
+        public static final String USER_ALREADY_EXISTS = "USER_ALREADY_EXISTS";
+        public static final String EMAIL_ALREADY_EXISTS = "EMAIL_ALREADY_EXISTS";
+        public static final String USER_ADDED_SUCCESSFULLY = "USER_ADDED_SUCCESSFULLY";
+
+    }
     public class MaintenanceMessages{
         public static final String CAR_MAINTENANCE_ADDED_SUCCESSFULLY = "CAR_DAMAGE_LISTED_SUCCESSFULLY";
         public static final String CAR_MAINTENANCE_UPDATED_SUCCESSFULLY = "CAR_MAINTENANCE_UPDATED_SUCCESSFULLY";
@@ -67,6 +92,7 @@ public class BusinessMessages {
 
     public class IndividualCustomerMessages{
         public static final String INDIVIDUAL_CUSTOMER_ADDED_SUCCESSFULLY = "INDIVIDUAL_CUSTOMER_ADDED_SUCCESSFULLY";
+        public static final String INDIVIDUAL_CUSTOMER_LISTED_SUCCESSFULLY = "INDIVIDUAL_CUSTOMER_LISTED_SUCCESSFULLY";
         public static final String INDIVIDUAL_CUSTOMER_UPDATED_SUCCESSFULLY = "INDIVIDUAL_CUSTOMER_UPDATED_SUCCESSFULLY";
         public static final String INDIVIDUAL_CUSTOMER_DELETED_SUCCESSFULLY = "INDIVIDUAL_CUSTOMER_DELETED_SUCCESSFULLY";
         public static final String INDIVIDUAL_CUSTOMER_NOT_FOUND = "INDIVIDUAL_CUSTOMER_NOT_FOUND";
@@ -98,14 +124,7 @@ public class BusinessMessages {
         public static final String ORDERED_ADDITIONAL_PRODUCT_PRICE_CALCULATED_SUCCESSFULLY = "ORDERED_ADDITIONAL_PRODUCT_PRICE_CALCULATED_SUCCESSFULLY";
     }
 
-    public class UserMessages{
-        public static final String USERS_LISTED_SUCCESSFULLY = "USERS_LISTED_SUCCESSFULLY";
-        public static final String USER_UPDATED_SUCCESSFULLY = "USER_UPDATED_SUCCESSFULLY";
-        public static final String USER_NOT_FOUND = "USER_NOT_FOUND";
-        public static final String EMAIL_ALREADY_EXISTS = "EMAIL_ALREADY_EXISTS";
-        public static final String USER_ADDED_SUCCESSFULLY = "USER_ADDED_SUCCESSFULLY";
 
-    }
 
     public class InvoiceMessages{
         public static final String INVOICE_ADDED_SUCCESSFULLY = "INVOICE_ADDED_SUCCESSFULLY";
@@ -118,21 +137,7 @@ public class BusinessMessages {
         public static final String INVOICE_BETWEEN_START_DATE_AND_END_DATE_LISTED_SUCCESSFULLY = "INVOICE_BETWEEN_START_DATE_AND_END_DATE_LISTED_SUCCESSFULLY";
     }
 
-    public class RentMessages{
-        public static final String RENT_ADDED_SUCCESSFULLY = "RENT_ADDED_SUCCESSFULLY";
-        public static final String RENT_UPDATED_SUCCESSFULLY = "RENT_UPDATED_SUCCESSFULLY";
-        public static final String END_KILOMETER_INFO_UPDATED_SUCCESSFULLY = "END_KILOMETER_INFO_UPDATED_SUCCESSFULLY";
-        public static final String RENT_DELETED_SUCCESSFULLY = "RENT_DELETED_SUCCESSFULLY";
-        public static final String RENT_LISTED_SUCCESSFULLY = "RENT_LISTED_SUCCESSFULLY";
-        public static final String RENTS_LISTED_SUCCESSFULLY = "RENTS_LISTED_SUCCESSFULLY";
-        public static final String RENTS_FOR_CAR_LISTED_SUCCESSFULLY = "RENTS_FOR_CAR_LISTED_SUCCESSFULLY";
-        public static final String CAR_NOT_IN_RENT = "CAR_NOT_IN_RENT";
-        public static final String CITIES_ARE_SAME = "CITIES_ARE_SAME";
-        public static final String CITIES_ARE_DIFFERENT = "CITIES_ARE_DIFFERENT";
-        public static final String RENT_TOTAL_PRICE_CALCULATED_SUCCESSFULLY = "RENT_TOTAL_PRICE_CALCULATED_SUCCESSFULLY";
-        public static final String RENT_NOT_FOUND = "RENT_NOT_FOUND";
 
-    }
 
     public class PaymentMessages{
         public static final String PAYMENT_ADDED_SUCCESSFULLY = "PAYMENT_ADDED_SUCCESSFULLY";

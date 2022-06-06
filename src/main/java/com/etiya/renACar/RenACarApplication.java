@@ -45,7 +45,7 @@ public class RenACarApplication {
 	@ExceptionHandler
 	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	public ErrorDataResult<Object> handleBusinessException(BusinessException businessException) {
-		ErrorDataResult<Object> errorResults = new ErrorDataResult<>(businessException.getMessage(), "Validate.Error");
+		ErrorDataResult<Object> errorResults = new ErrorDataResult<>(businessException.getMessage(), "BUSINESS_ERROR(S)");
 		return errorResults;
 	}
 

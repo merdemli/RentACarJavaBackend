@@ -42,6 +42,8 @@ public class CreatePaymentRequest {
 
 //------------------OrderedAdditionalProduct-----------------------
     private CreateInvoiceRequest createInvoiceRequest;
+
+   // private CreateRentalForDailyPriceRequest createRentalForDailyPriceRequest;
 }
 
 //User eklenmiyor çünkü sisteme kayt olunmadan araba kiralanamıyor bu sistemde

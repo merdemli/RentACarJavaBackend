@@ -5,6 +5,8 @@ import com.etiya.renACar.model.enums.CarStates;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import javax.persistence.CascadeType;
 
 import javax.persistence.*;
@@ -25,7 +27,6 @@ public class Car extends Base {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-
     @Column(name = "daily_price")
     private double dailyPrice;
 
@@ -44,6 +45,7 @@ public class Car extends Base {
 
     @ManyToOne
     @JoinColumn(name = "color_id")
+    @ToString.Exclude
     private Color color;
 
     @ManyToOne(cascade = CascadeType.MERGE)

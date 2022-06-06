@@ -1,27 +1,20 @@
-package com.etiya.renACar.model.entities.concretes;
+package com.etiya.renACar.business.model.responses.listResponseDto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
 import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "individual_customers")
+public class IndividualCustomerListResponse {
 
-@PrimaryKeyJoinColumn(name = "user_id")
-public class IndividualCustomer extends Customer{
-
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "individual_customer_id")
-//    private int individualCustomerId;
+    @Column(name = "id")
+    private int id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -35,4 +28,5 @@ public class IndividualCustomer extends Customer{
     @Column(name = "date_of_birth")
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
+
 }

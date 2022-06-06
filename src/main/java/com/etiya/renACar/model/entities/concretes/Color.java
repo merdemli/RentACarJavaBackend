@@ -4,6 +4,7 @@ import com.etiya.renACar.model.entities.abstracts.Base;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -22,11 +23,10 @@ public class Color extends Base {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-//    @NotNull
-//    @Size(min =2)
     @Column(name= "name")
     private String name;
 
     @OneToMany(mappedBy = "color")
+    @ToString.Exclude
     private List<Car> cars; //one color many car olabilir
 }

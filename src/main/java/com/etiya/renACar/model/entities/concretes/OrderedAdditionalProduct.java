@@ -27,11 +27,11 @@ public class OrderedAdditionalProduct extends Base {
     @JoinColumn(name = "rental_id")
     private Rental rental;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne  //(cascade = CascadeType.MERGE)
     @JoinColumn(name = "additional_product_id")
     private AdditionalProduct additionalProduct;
 
-    @Column(name = "total_price")
+    @Column(name = "total_price") //amount*daily price(additional Product)
     private double totalPrice;
 
 //    @ManyToOne

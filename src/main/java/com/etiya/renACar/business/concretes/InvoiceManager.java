@@ -6,6 +6,7 @@ import com.etiya.renACar.business.model.requests.createRequest.CreateInvoiceRequ
 import com.etiya.renACar.business.model.requests.deleteRequest.DeleteInvoiceRequest;
 import com.etiya.renACar.business.model.requests.updateRequest.UpdateInvoiceRequest;
 import com.etiya.renACar.business.model.responses.listResponseDto.InvoiceListResponse;
+import com.etiya.renACar.core.utilities.helpers.HelperMetods;
 import com.etiya.renACar.core.utilities.mapping.ModelMapperService;
 import com.etiya.renACar.core.utilities.results.DataResult;
 import com.etiya.renACar.core.utilities.results.Result;
@@ -31,9 +32,12 @@ public class InvoiceManager implements InvoiceService {
         this.modelMapperService = modelMapperService;
     }
 
+
     @Override
     public Result add(CreateInvoiceRequest createInvoiceRequest) {
         Invoice invoice = this.modelMapperService.forRequest().map(createInvoiceRequest, Invoice.class);
+        invoice.setInvoiceNo(HelperMetods.createCode()); //UUID
+
          this.invoiceRepository.save(invoice);
         return new SuccessResult( BusinessMessages.InvoiceMessages.INVOICE_ADDED_SUCCESSFULLY);
     }

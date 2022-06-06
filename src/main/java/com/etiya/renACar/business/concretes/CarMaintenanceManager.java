@@ -43,7 +43,9 @@ public class CarMaintenanceManager implements CarMaintenanceService {
     public Result add(CreateCarMaintenanceRequest createCarMaintenanceRequest) {
 
         this.rentalService.checkIfCarisRented(createCarMaintenanceRequest.getCarId()); //araba kirada mı?
-        checkIfCarisAlreadyInMaintenanceWithState(createCarMaintenanceRequest.getCarId());
+
+        checkIfCarisAlreadyInMaintenanceWithState(createCarMaintenanceRequest.getCarId());//araba bakımda mı?
+
         checkIfReturnDate(createCarMaintenanceRequest.getReturnedDate());
 
 
